@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 23, 2022 at 07:28 AM
+-- Generation Time: Nov 04, 2022 at 02:14 PM
 -- Server version: 10.4.8-MariaDB
 -- PHP Version: 7.3.33
 
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `benfed_payroll`
+-- Database: `purdcs_payroll`
 --
 
 DELIMITER $$
@@ -232,16 +232,15 @@ CREATE TABLE `md_category` (
 --
 
 INSERT INTO `md_category` (`id`, `category`, `da`, `sa`, `hra`, `hra_max`, `pf`, `pf_max`, `pf_min`, `ta`, `ma`, `created_by`, `created_at`, `modified_by`, `modified_at`) VALUES
-(1, 'Permanent', 36.82, 16.40, 10.25, 4000.00, 12.00, 2000.00, 0.00, 600.00, 196.00, 'sss', '2022-09-15 02:23:52', 'sss', '2022-09-19 08:16:31'),
-(2, 'Temporary', 5.00, 0.00, 0.00, 0.00, 5.00, 600.00, 300.00, 0.00, 0.00, 'sss', '2022-09-15 02:28:31', 'sss', '2022-09-19 12:38:23');
+(1, 'Permanent', 17.00, 0.00, 10.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 'sss', '2022-10-31 01:49:34', NULL, NULL);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `md_department`
+-- Table structure for table `md_designation`
 --
 
-CREATE TABLE `md_department` (
+CREATE TABLE `md_designation` (
   `id` int(11) NOT NULL,
   `name` varchar(100) NOT NULL,
   `created_at` datetime DEFAULT NULL,
@@ -251,12 +250,15 @@ CREATE TABLE `md_department` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `md_department`
+-- Dumping data for table `md_designation`
 --
 
-INSERT INTO `md_department` (`id`, `name`, `created_at`, `created_by`, `updated_at`, `updated_by`) VALUES
-(1, 'ACCOUNTS', '2022-08-25 00:00:00', 'demo', '2022-08-25 06:25:47', 'sss'),
-(2, 'demo', '2022-08-25 05:24:53', 'sss', '2022-08-25 06:25:55', 'sss');
+INSERT INTO `md_designation` (`id`, `name`, `created_at`, `created_by`, `updated_at`, `updated_by`) VALUES
+(1, 'CEO', '2022-10-31 11:50:00', 'sss', NULL, ''),
+(2, 'Asst. CEO', '2022-10-31 11:50:11', 'sss', NULL, ''),
+(3, 'Legal Manager', '2022-10-31 11:50:18', 'sss', NULL, ''),
+(4, 'Asst. Manager', '2022-10-31 11:50:27', 'sss', NULL, ''),
+(5, 'Peon', '2022-10-31 11:50:36', 'sss', NULL, '');
 
 -- --------------------------------------------------------
 
@@ -314,6 +316,7 @@ CREATE TABLE `md_employee` (
   `ret_dt` date DEFAULT NULL,
   `designation` varchar(50) DEFAULT NULL,
   `department` varchar(50) DEFAULT NULL,
+  `grade` int(11) NOT NULL,
   `phn_no` varchar(14) DEFAULT NULL,
   `email` varchar(100) DEFAULT NULL,
   `pan_no` varchar(50) DEFAULT NULL,
@@ -336,16 +339,9 @@ CREATE TABLE `md_employee` (
 -- Dumping data for table `md_employee`
 --
 
-INSERT INTO `md_employee` (`emp_code`, `emp_name`, `emp_catg`, `emp_dist`, `dob`, `join_dt`, `ret_dt`, `designation`, `department`, `phn_no`, `email`, `pan_no`, `aadhar_no`, `emp_addr`, `bank_name`, `bank_ac_no`, `pf_ac_no`, `UAN`, `basic_pay`, `created_by`, `created_dt`, `emp_status`, `remarks`, `modified_by`, `modified_dt`) VALUES
-(132, 'Sanatan Ghosh', 1, 339, '1996-05-29', '2019-07-01', '2056-05-29', 'Grade IIB', '1', '9051203118', 'subham@synergicsoftek.in', '', '', 'Test', '', '', '', '', '59860.00', 'sss', '2022-09-19 08:11:42', 'A', NULL, NULL, NULL),
-(133, 'Gopal Mukherjee', 2, 339, '1983-09-13', '2011-10-10', '2043-09-13', 'Guard', '1', '1234567892', 'abc+1@gmail.com', '', '', '', '', '20105798', '', '', '20000.00', 'sss', '2022-09-19 09:05:37', 'A', '', 'sss', '2022-09-22 12:44:19'),
-(162, 'Biswanath Dey', 2, 339, '1996-05-29', '2018-07-01', '2056-05-29', 'Gold Appraiser', '2', '7894561230', 'ab@gmail.com', '', '', 'abc', '', '10109891', '', '', '21000.00', 'sss', '2022-09-19 08:41:46', 'A', '', 'sss', '2022-09-22 12:44:48'),
-(238, 'PRADIP KUMAR DAS', 0, 344, '1967-01-25', '1986-05-07', '2027-01-31', 'Group-D', '', '8768236754', '', 'BAXPD3762L', '', 'Vill. Ekteswar, PO. Bankura, Dist. Bankura 722101\r\n', 'SBI', '20078612573', 'WB/CAL/13787/473', '100285074467', '39900.00', 'anirbanc', '2021-02-25 04:29:05', 'A', NULL, NULL, NULL),
-(1008, 'BHOLANATH MONDAL', 1, 342, '0000-00-00', '0000-00-00', '0000-00-00', 'MANAGER [MARKETING]', 'MARKETING', '', '', '', '', '', 'SBI', '11850726511', '', '', '85200.00', 'anirbanc', '2021-02-27 11:24:40', 'A', NULL, NULL, NULL),
-(1013, 'SUMAN DAS GUPTA', 1, 342, '0000-00-00', '0000-00-00', '0000-00-00', 'DY.MANAGER [PERS]', 'PERSONNEL', '', '', '', '', '', 'SBI', '31830762827', '', '', '70000.00', 'anirbanc', '2021-02-27 11:28:58', 'A', NULL, NULL, NULL),
-(1014, 'MANAB BANERJEE', 1, 342, '0000-00-00', '0000-00-00', '0000-00-00', 'MANAGER [FERT & INPUTS]', 'FERTILISER & INPUTS', '', '', '', '', '', 'SBI', '20108559219', '', '', '80300.00', 'anirbanc', '2021-02-27 11:27:02', 'A', NULL, NULL, NULL),
-(1015, 'LAKSHMAN BANIK', 1, 342, '0000-00-00', '0000-00-00', '0000-00-00', 'GENERAL MANAGER[ADMN]', 'PERSONNEL', '9674746922', '', '', '', '', 'SBI', '33306029269', '', '', '126800.00', 'anirbanc', '2021-02-27 11:20:52', 'A', NULL, NULL, NULL),
-(1016, 'DEBANGSHU BANERJEE', 1, 342, '0000-00-00', '0000-00-00', '0000-00-00', 'CA&AO', 'ACCOUNTS', '', '', '', '', '', 'SBI', '20064962862', '', '', '110200.00', 'anirbanc', '2021-02-27 11:22:46', 'A', NULL, NULL, NULL);
+INSERT INTO `md_employee` (`emp_code`, `emp_name`, `emp_catg`, `emp_dist`, `dob`, `join_dt`, `ret_dt`, `designation`, `department`, `grade`, `phn_no`, `email`, `pan_no`, `aadhar_no`, `emp_addr`, `bank_name`, `bank_ac_no`, `pf_ac_no`, `UAN`, `basic_pay`, `created_by`, `created_dt`, `emp_status`, `remarks`, `modified_by`, `modified_dt`) VALUES
+(193001, 'Sukanta Kumar Mohapatra', 1, 339, '1976-08-05', '2007-07-30', '2036-08-05', '1', 'Administration-Head Office', 1, '1234567892', '', '', '', '', '', '1439101026330', '', '', '41100.00', 'sss', '2022-10-31 02:01:28', 'A', '', 'sss', '2022-10-31 02:12:15'),
+(193002, 'Mahendra Kumar Ghatuary', 1, 339, '1987-01-22', '2001-02-21', '2047-01-22', '2', 'CEO', 1, '7894561231', '', '', '', '', '', '', '', '', '33300.00', 'sss', '2022-11-01 06:52:12', 'A', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -740,7 +736,19 @@ INSERT INTO `td_audit_trail` (`sl_no`, `login_dt`, `user_id`, `terminal_name`, `
 (74, '2022-09-22 07:39:25', 'sss', '127.0.0.1', '2022-09-22 07:59:35'),
 (75, '2022-09-22 10:00:42', 'sss', '127.0.0.1', NULL),
 (76, '2022-09-22 12:32:49', 'sss', '127.0.0.1', NULL),
-(77, '2022-09-23 07:16:29', 'sss', '127.0.0.1', NULL);
+(77, '2022-09-23 07:16:29', 'sss', '127.0.0.1', NULL),
+(78, '2022-09-23 09:30:02', 'sss', '127.0.0.1', NULL),
+(79, '2022-09-29 07:24:48', 'sss', '127.0.0.1', NULL),
+(80, '2022-10-11 08:49:34', 'sss', '127.0.0.1', NULL),
+(81, '2022-10-14 01:20:47', 'sss', '127.0.0.1', NULL),
+(82, '2022-10-18 11:37:04', 'sss', '127.0.0.1', NULL),
+(83, '2022-10-28 10:10:50', 'sss', '127.0.0.1', NULL),
+(84, '2022-10-31 11:13:58', 'sss', '127.0.0.1', '2022-10-31 11:14:33'),
+(85, '2022-10-31 11:19:20', 'sss', '127.0.0.1', NULL),
+(86, '2022-11-01 06:07:04', 'sss', '127.0.0.1', '2022-11-01 09:22:35'),
+(87, '2022-11-01 10:42:39', 'sss', '127.0.0.1', NULL),
+(88, '2022-11-01 11:01:30', 'sss', '127.0.0.1', NULL),
+(89, '2022-11-01 01:38:23', 'sss', '127.0.0.1', NULL);
 
 -- --------------------------------------------------------
 
@@ -753,26 +761,15 @@ CREATE TABLE `td_deductions` (
   `effective_date` date NOT NULL,
   `catg_id` int(11) NOT NULL,
   `gross` float(10,2) NOT NULL,
-  `pf` float(10,2) NOT NULL,
-  `adv_agst_hb_prin` float(10,2) NOT NULL,
-  `adv_agst_hb_int` float(10,2) NOT NULL,
-  `adv_agst_hb_const_prin` float(10,2) NOT NULL,
-  `adv_agst_hb_const_int` float(10,2) NOT NULL,
-  `adv_agst_hb_staff_prin` float(10,2) NOT NULL,
-  `adv_agst_hb_staff_int` float(10,2) NOT NULL,
-  `gross_hb_int` float(10,2) NOT NULL,
-  `adv_agst_of_staff_prin` float(10,2) NOT NULL,
-  `adv_agst_of_staff_int` float(10,2) NOT NULL,
-  `staff_adv_ext_prin` float(10,2) NOT NULL,
-  `staff_adv_ext_int` float(10,2) NOT NULL,
-  `motor_cycle_prin` float(10,2) NOT NULL,
-  `motor_cycle_int` float(10,2) NOT NULL,
-  `p_tax` float(10,2) NOT NULL,
-  `gici` float(10,2) NOT NULL,
-  `puja_adv` float(10,2) NOT NULL,
-  `income_tax_tds` float(10,2) NOT NULL,
-  `union_subs` float(10,2) NOT NULL,
-  `tot_diduction` float(10,2) NOT NULL,
+  `pf` float(10,2) NOT NULL DEFAULT 0.00,
+  `loan_prin` float(10,2) NOT NULL DEFAULT 0.00,
+  `loan_int` float(10,2) NOT NULL DEFAULT 0.00,
+  `p_tax` float(10,2) NOT NULL DEFAULT 0.00,
+  `gici` float(10,2) NOT NULL DEFAULT 0.00,
+  `income_tax_tds` float(10,2) NOT NULL DEFAULT 0.00,
+  `security` float(10,2) NOT NULL DEFAULT 0.00,
+  `insurance` float(10,2) NOT NULL DEFAULT 0.00,
+  `tot_diduction` float(10,2) NOT NULL DEFAULT 0.00,
   `net_sal` float(10,2) NOT NULL,
   `created_by` varchar(50) NOT NULL,
   `created_dt` datetime NOT NULL,
@@ -784,15 +781,9 @@ CREATE TABLE `td_deductions` (
 -- Dumping data for table `td_deductions`
 --
 
-INSERT INTO `td_deductions` (`emp_code`, `effective_date`, `catg_id`, `gross`, `pf`, `adv_agst_hb_prin`, `adv_agst_hb_int`, `adv_agst_hb_const_prin`, `adv_agst_hb_const_int`, `adv_agst_hb_staff_prin`, `adv_agst_hb_staff_int`, `gross_hb_int`, `adv_agst_of_staff_prin`, `adv_agst_of_staff_int`, `staff_adv_ext_prin`, `staff_adv_ext_int`, `motor_cycle_prin`, `motor_cycle_int`, `p_tax`, `gici`, `puja_adv`, `income_tax_tds`, `union_subs`, `tot_diduction`, `net_sal`, `created_by`, `created_dt`, `modified_by`, `modified_dt`) VALUES
-(132, '2022-09-19', 1, 100349.00, 2000.00, 2222.00, 1006.00, 10000.00, 3025.00, 5333.00, 2014.00, 6045.00, 3809.00, 1010.00, 6250.00, 1516.00, 0.00, 0.00, 200.00, 40.00, 3500.00, 1000.00, 0.00, 42925.00, 57424.00, 'sss', '2022-09-19 08:19:58', NULL, NULL),
-(133, '2022-09-19', 2, 20000.00, 600.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 130.00, 0.00, 1000.00, 0.00, 0.00, 1730.00, 18270.00, 'sss', '2022-09-19 12:39:36', 'sss', '2022-09-19 12:40:50'),
-(162, '2022-09-19', 2, 21000.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 6667.00, 2656.00, 0.00, 0.00, 130.00, 0.00, 1000.00, 0.00, 0.00, 10453.00, 10547.00, 'sss', '2022-09-19 08:48:26', 'sss', '2022-09-19 12:40:50'),
-(1008, '2022-09-19', 1, 140706.00, 2000.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 200.00, 0.00, 0.00, 0.00, 0.00, 2200.00, 138506.00, 'sss', '2022-09-19 07:48:20', 'sss', '2022-09-19 08:19:58'),
-(1013, '2022-09-19', 1, 116498.00, 2000.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 200.00, 0.00, 0.00, 0.00, 0.00, 2200.00, 114298.00, 'sss', '2022-09-19 07:48:20', 'sss', '2022-09-19 08:19:59'),
-(1014, '2022-09-19', 1, 132901.00, 2000.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 200.00, 0.00, 0.00, 0.00, 0.00, 2200.00, 130701.00, 'sss', '2022-09-19 07:48:20', 'sss', '2022-09-19 08:19:59'),
-(1015, '2022-09-19', 1, 206957.00, 2000.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 200.00, 0.00, 0.00, 0.00, 0.00, 2200.00, 204757.00, 'sss', '2022-09-19 07:48:20', 'sss', '2022-09-19 08:19:59'),
-(1016, '2022-09-19', 1, 180520.00, 2000.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 200.00, 0.00, 0.00, 0.00, 0.00, 2200.00, 178320.00, 'sss', '2022-09-19 07:48:20', 'sss', '2022-09-19 08:19:59');
+INSERT INTO `td_deductions` (`emp_code`, `effective_date`, `catg_id`, `gross`, `pf`, `loan_prin`, `loan_int`, `p_tax`, `gici`, `income_tax_tds`, `security`, `insurance`, `tot_diduction`, `net_sal`, `created_by`, `created_dt`, `modified_by`, `modified_dt`) VALUES
+(193001, '2022-11-01', 1, 55197.00, 150.00, 1000.00, 500.00, 200.00, 0.00, 0.00, 500.00, 0.00, 2350.00, 52847.00, 'sss', '2022-11-01 07:32:01', NULL, NULL),
+(193002, '2022-11-01', 1, 44791.00, 100.00, 200.00, 100.00, 200.00, 0.00, 0.00, 0.00, 0.00, 600.00, 44191.00, 'sss', '2022-11-01 07:32:02', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -827,14 +818,8 @@ CREATE TABLE `td_income` (
 --
 
 INSERT INTO `td_income` (`emp_code`, `effective_date`, `catg_id`, `basic`, `da`, `sa`, `hra`, `ta`, `da_on_sa`, `da_on_ta`, `ma`, `cash_swa`, `gross`, `lwp`, `final_gross`, `created_by`, `created_dt`, `modified_by`, `modified_dt`) VALUES
-(132, '2022-09-19', 1, 59860.00, 22040.00, 9817.00, 4000.00, 600.00, 3615.00, 221.00, 196.00, 0.00, 100349.00, 0.00, 100349.00, 'sss', '2022-09-19 08:15:05', NULL, NULL),
-(133, '2022-09-19', 2, 20000.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 20000.00, 0.00, 20000.00, 'sss', '2022-09-19 11:39:52', 'sss', '2022-09-19 11:40:00'),
-(162, '2022-09-19', 2, 21000.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 21000.00, 0.00, 21000.00, 'sss', '2022-09-19 08:46:26', 'sss', '2022-09-19 11:40:00'),
-(1008, '2022-09-19', 1, 85200.00, 31371.00, 13973.00, 4000.00, 600.00, 5145.00, 221.00, 196.00, 0.00, 140706.00, 0.00, 140706.00, 'sss', '2022-09-19 08:15:05', NULL, NULL),
-(1013, '2022-09-19', 1, 70000.00, 25774.00, 11480.00, 4000.00, 600.00, 4227.00, 221.00, 196.00, 0.00, 116498.00, 0.00, 116498.00, 'sss', '2022-09-19 08:15:05', NULL, NULL),
-(1014, '2022-09-19', 1, 80300.00, 29566.00, 13169.00, 4000.00, 600.00, 4849.00, 221.00, 196.00, 0.00, 132901.00, 0.00, 132901.00, 'sss', '2022-09-19 08:15:05', NULL, NULL),
-(1015, '2022-09-19', 1, 126800.00, 46688.00, 20795.00, 4000.00, 600.00, 7657.00, 221.00, 196.00, 0.00, 206957.00, 0.00, 206957.00, 'sss', '2022-09-19 08:15:05', NULL, NULL),
-(1016, '2022-09-19', 1, 110200.00, 40576.00, 18073.00, 4000.00, 600.00, 6654.00, 221.00, 196.00, 0.00, 180520.00, 0.00, 180520.00, 'sss', '2022-09-19 08:15:05', NULL, NULL);
+(193001, '2022-11-01', 1, 41100.00, 6987.00, 0.00, 4110.00, 2500.00, 0.00, 0.00, 500.00, 0.00, 55197.00, 0.00, 55197.00, 'sss', '2022-11-01 06:56:02', NULL, NULL),
+(193002, '2022-11-01', 1, 33300.00, 5661.00, 0.00, 3330.00, 2000.00, 0.00, 0.00, 500.00, 0.00, 44791.00, 0.00, 44791.00, 'sss', '2022-11-01 06:56:02', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -920,28 +905,17 @@ CREATE TABLE `td_pay_slip` (
   `cash_swa` float(10,2) NOT NULL DEFAULT 0.00,
   `lwp` float(10,2) NOT NULL DEFAULT 0.00,
   `final_gross` float(10,2) NOT NULL DEFAULT 0.00,
-  `pf` float(10,2) NOT NULL,
-  `adv_agst_hb_prin` float(10,2) NOT NULL,
-  `adv_agst_hb_int` float(10,2) NOT NULL,
-  `adv_agst_hb_const_prin` float(10,2) NOT NULL,
-  `adv_agst_hb_const_int` float(10,2) NOT NULL,
-  `adv_agst_hb_staff_prin` float(10,2) NOT NULL,
-  `adv_agst_hb_staff_int` float(10,2) NOT NULL,
-  `gross_hb_int` float(10,2) NOT NULL,
-  `adv_agst_of_staff_prin` float(10,2) NOT NULL,
-  `adv_agst_of_staff_int` float(10,2) NOT NULL,
-  `staff_adv_ext_prin` float(10,2) NOT NULL,
-  `staff_adv_ext_int` float(10,2) NOT NULL,
-  `motor_cycle_prin` float(10,2) NOT NULL,
-  `motor_cycle_int` float(10,2) NOT NULL,
-  `p_tax` float(10,2) NOT NULL,
-  `gici` float(10,2) NOT NULL,
-  `puja_adv` float(10,2) NOT NULL,
-  `income_tax_tds` float(10,2) NOT NULL,
-  `union_subs` float(10,2) NOT NULL,
+  `pf` float(10,2) NOT NULL DEFAULT 0.00,
+  `loan_prin` float(10,2) NOT NULL DEFAULT 0.00,
+  `loan_int` float(10,2) NOT NULL DEFAULT 0.00,
+  `p_tax` float(10,2) NOT NULL DEFAULT 0.00,
+  `gici` float(10,2) NOT NULL DEFAULT 0.00,
+  `income_tax_tds` float(10,2) NOT NULL DEFAULT 0.00,
+  `security` float(10,2) NOT NULL DEFAULT 0.00,
+  `insurance` float(10,2) NOT NULL DEFAULT 0.00,
   `tot_diduction` float(10,2) NOT NULL,
   `net_sal` float(10,2) NOT NULL,
-  `bank_ac_no` varchar(50) NOT NULL,
+  `bank_ac_no` varchar(50) DEFAULT NULL,
   `created_by` varchar(50) DEFAULT NULL,
   `created_dt` datetime DEFAULT NULL,
   `modified_by` varchar(50) DEFAULT NULL,
@@ -954,23 +928,11 @@ CREATE TABLE `td_pay_slip` (
 -- Dumping data for table `td_pay_slip`
 --
 
-INSERT INTO `td_pay_slip` (`trans_date`, `trans_no`, `sal_month`, `sal_year`, `emp_code`, `catg_id`, `basic`, `da`, `sa`, `hra`, `ta`, `da_on_sa`, `da_on_ta`, `ma`, `cash_swa`, `lwp`, `final_gross`, `pf`, `adv_agst_hb_prin`, `adv_agst_hb_int`, `adv_agst_hb_const_prin`, `adv_agst_hb_const_int`, `adv_agst_hb_staff_prin`, `adv_agst_hb_staff_int`, `gross_hb_int`, `adv_agst_of_staff_prin`, `adv_agst_of_staff_int`, `staff_adv_ext_prin`, `staff_adv_ext_int`, `motor_cycle_prin`, `motor_cycle_int`, `p_tax`, `gici`, `puja_adv`, `income_tax_tds`, `union_subs`, `tot_diduction`, `net_sal`, `bank_ac_no`, `created_by`, `created_dt`, `modified_by`, `modified_dt`, `remarks`, `approval_status`) VALUES
-('2022-09-19', 1, '09', 2022, 132, 1, 59860.00, 22040.00, 9817.00, 4000.00, 600.00, 3615.00, 221.00, 196.00, 0.00, 0.00, 100349.00, 2000.00, 2222.00, 1006.00, 10000.00, 3025.00, 5333.00, 2014.00, 6045.00, 3809.00, 1010.00, 6250.00, 1516.00, 0.00, 0.00, 200.00, 40.00, 3500.00, 1000.00, 0.00, 42925.00, 57424.00, '', NULL, NULL, NULL, NULL, 'System Generated', 'U'),
-('2022-09-19', 1, '09', 2022, 1008, 1, 85200.00, 31371.00, 13973.00, 4000.00, 600.00, 5145.00, 221.00, 196.00, 0.00, 0.00, 140706.00, 2000.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 200.00, 0.00, 0.00, 0.00, 0.00, 2200.00, 138506.00, '', NULL, NULL, NULL, NULL, 'System Generated', 'U'),
-('2022-09-19', 1, '09', 2022, 1013, 1, 70000.00, 25774.00, 11480.00, 4000.00, 600.00, 4227.00, 221.00, 196.00, 0.00, 0.00, 116498.00, 2000.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 200.00, 0.00, 0.00, 0.00, 0.00, 2200.00, 114298.00, '', NULL, NULL, NULL, NULL, 'System Generated', 'U'),
-('2022-09-19', 1, '09', 2022, 1014, 1, 80300.00, 29566.00, 13169.00, 4000.00, 600.00, 4849.00, 221.00, 196.00, 0.00, 0.00, 132901.00, 2000.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 200.00, 0.00, 0.00, 0.00, 0.00, 2200.00, 130701.00, '', NULL, NULL, NULL, NULL, 'System Generated', 'U'),
-('2022-09-19', 1, '09', 2022, 1015, 1, 126800.00, 46688.00, 20795.00, 4000.00, 600.00, 7657.00, 221.00, 196.00, 0.00, 0.00, 206957.00, 2000.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 200.00, 0.00, 0.00, 0.00, 0.00, 2200.00, 204757.00, '', NULL, NULL, NULL, NULL, 'System Generated', 'U'),
-('2022-09-19', 1, '09', 2022, 1016, 1, 110200.00, 40576.00, 18073.00, 4000.00, 600.00, 6654.00, 221.00, 196.00, 0.00, 0.00, 180520.00, 2000.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 200.00, 0.00, 0.00, 0.00, 0.00, 2200.00, 178320.00, '', NULL, NULL, NULL, NULL, 'System Generated', 'U'),
-('2022-09-20', 1, '10', 2022, 132, 1, 59860.00, 22040.00, 9817.00, 4000.00, 600.00, 3615.00, 221.00, 196.00, 0.00, 0.00, 100349.00, 2000.00, 2222.00, 1006.00, 10000.00, 3025.00, 5333.00, 2014.00, 6045.00, 3809.00, 1010.00, 6250.00, 1516.00, 0.00, 0.00, 200.00, 40.00, 3500.00, 1000.00, 0.00, 42925.00, 57424.00, '', NULL, NULL, NULL, NULL, 'System Generated', 'U'),
-('2022-09-20', 1, '10', 2022, 1008, 1, 85200.00, 31371.00, 13973.00, 4000.00, 600.00, 5145.00, 221.00, 196.00, 0.00, 0.00, 140706.00, 2000.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 200.00, 0.00, 0.00, 0.00, 0.00, 2200.00, 138506.00, '', NULL, NULL, NULL, NULL, 'System Generated', 'U'),
-('2022-09-20', 1, '10', 2022, 1013, 1, 70000.00, 25774.00, 11480.00, 4000.00, 600.00, 4227.00, 221.00, 196.00, 0.00, 0.00, 116498.00, 2000.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 200.00, 0.00, 0.00, 0.00, 0.00, 2200.00, 114298.00, '', NULL, NULL, NULL, NULL, 'System Generated', 'U'),
-('2022-09-20', 1, '10', 2022, 1014, 1, 80300.00, 29566.00, 13169.00, 4000.00, 600.00, 4849.00, 221.00, 196.00, 0.00, 0.00, 132901.00, 2000.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 200.00, 0.00, 0.00, 0.00, 0.00, 2200.00, 130701.00, '', NULL, NULL, NULL, NULL, 'System Generated', 'U'),
-('2022-09-20', 1, '10', 2022, 1015, 1, 126800.00, 46688.00, 20795.00, 4000.00, 600.00, 7657.00, 221.00, 196.00, 0.00, 0.00, 206957.00, 2000.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 200.00, 0.00, 0.00, 0.00, 0.00, 2200.00, 204757.00, '', NULL, NULL, NULL, NULL, 'System Generated', 'U'),
-('2022-09-20', 1, '10', 2022, 1016, 1, 110200.00, 40576.00, 18073.00, 4000.00, 600.00, 6654.00, 221.00, 196.00, 0.00, 0.00, 180520.00, 2000.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 200.00, 0.00, 0.00, 0.00, 0.00, 2200.00, 178320.00, '', NULL, NULL, NULL, NULL, 'System Generated', 'U'),
-('2022-09-20', 1, '5', 2021, 133, 2, 20000.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 20000.00, 600.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 130.00, 0.00, 1000.00, 0.00, 0.00, 1730.00, 18270.00, '', NULL, NULL, NULL, NULL, 'System Generated', 'A'),
-('2022-09-20', 1, '5', 2021, 162, 2, 21000.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 21000.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 6667.00, 2656.00, 0.00, 0.00, 130.00, 0.00, 1000.00, 0.00, 0.00, 10453.00, 10547.00, '', NULL, NULL, NULL, NULL, 'System Generated', 'A'),
-('2022-09-22', 1, '6', 2021, 133, 2, 20000.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 20000.00, 600.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 130.00, 0.00, 1000.00, 0.00, 0.00, 1730.00, 18270.00, '20105798', NULL, NULL, NULL, NULL, 'System Generated', 'A'),
-('2022-09-22', 1, '6', 2021, 162, 2, 21000.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 21000.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 6667.00, 2656.00, 0.00, 0.00, 130.00, 0.00, 1000.00, 0.00, 0.00, 10453.00, 10547.00, '10109891', NULL, NULL, NULL, NULL, 'System Generated', 'A');
+INSERT INTO `td_pay_slip` (`trans_date`, `trans_no`, `sal_month`, `sal_year`, `emp_code`, `catg_id`, `basic`, `da`, `sa`, `hra`, `ta`, `da_on_sa`, `da_on_ta`, `ma`, `cash_swa`, `lwp`, `final_gross`, `pf`, `loan_prin`, `loan_int`, `p_tax`, `gici`, `income_tax_tds`, `security`, `insurance`, `tot_diduction`, `net_sal`, `bank_ac_no`, `created_by`, `created_dt`, `modified_by`, `modified_dt`, `remarks`, `approval_status`) VALUES
+('2022-11-01', 1, '4', 2022, 193001, 1, 41100.00, 6987.00, 0.00, 4110.00, 2500.00, 0.00, 0.00, 500.00, 0.00, 0.00, 55197.00, 150.00, 1000.00, 500.00, 200.00, 0.00, 0.00, 500.00, 0.00, 2350.00, 52847.00, '1439101026330', NULL, NULL, NULL, NULL, 'System Generated', 'A'),
+('2022-11-01', 1, '4', 2022, 193002, 1, 33300.00, 5661.00, 0.00, 3330.00, 2000.00, 0.00, 0.00, 500.00, 0.00, 0.00, 44791.00, 100.00, 200.00, 100.00, 200.00, 0.00, 0.00, 0.00, 0.00, 600.00, 44191.00, '', NULL, NULL, NULL, NULL, 'System Generated', 'A'),
+('2022-11-01', 1, '5', 2022, 193001, 1, 41100.00, 6987.00, 0.00, 4110.00, 2500.00, 0.00, 0.00, 500.00, 0.00, 0.00, 55197.00, 150.00, 1000.00, 500.00, 200.00, 0.00, 0.00, 500.00, 0.00, 2350.00, 52847.00, '1439101026330', NULL, NULL, NULL, NULL, 'System Generated', 'A'),
+('2022-11-01', 1, '5', 2022, 193002, 1, 33300.00, 5661.00, 0.00, 3330.00, 2000.00, 0.00, 0.00, 500.00, 0.00, 0.00, 44791.00, 100.00, 200.00, 100.00, 200.00, 0.00, 0.00, 0.00, 0.00, 600.00, 44191.00, '', NULL, NULL, NULL, NULL, 'System Generated', 'A');
 
 -- --------------------------------------------------------
 
@@ -998,12 +960,10 @@ CREATE TABLE `td_salary` (
 --
 
 INSERT INTO `td_salary` (`trans_date`, `trans_no`, `sal_month`, `sal_year`, `catg_cd`, `approval_status`, `created_by`, `created_dt`, `modified_by`, `modified_dt`, `approved_by`, `approved_dt`) VALUES
-('2021-04-02', 1, 3, 2021, 2, 'A', 'anirbanc', '2021-04-02 06:13:56', NULL, NULL, NULL, NULL),
-('2022-08-31', 1, 4, 2021, 2, 'A', 'sss', '2022-08-31 06:49:46', NULL, NULL, 'sss', '2022-08-31 00:00:00'),
-('2022-09-19', 1, 9, 2022, 1, 'A', 'sss', '2022-09-19 02:04:52', NULL, NULL, NULL, NULL),
-('2022-09-20', 1, 5, 2021, 2, 'A', 'sss', '2022-09-20 08:55:03', NULL, NULL, 'sss', '2022-09-20 00:00:00'),
-('2022-09-20', 1, 10, 2022, 1, 'A', 'sss', '2022-09-20 07:20:20', NULL, NULL, NULL, NULL),
-('2022-09-22', 1, 6, 2021, 2, 'A', 'sss', '2022-09-22 12:44:58', NULL, NULL, 'sss', '2022-09-22 00:00:00');
+('2022-03-31', 0, 3, 2022, 1, 'A', 'admin', '2022-10-11 00:00:00', NULL, NULL, 'admin', '2022-10-11 00:00:00'),
+('2022-03-31', 0, 3, 2022, 2, 'A', 'admin', '2022-10-11 00:00:00', NULL, NULL, 'admin', '2022-10-11 00:00:00'),
+('2022-11-01', 1, 4, 2022, 1, 'A', 'sss', '2022-11-01 07:37:57', NULL, NULL, 'sss', '2022-11-01 00:00:00'),
+('2022-11-01', 1, 5, 2022, 1, 'A', 'sss', '2022-11-01 10:49:57', NULL, NULL, 'sss', '2022-11-01 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -1077,9 +1037,9 @@ ALTER TABLE `md_category`
   ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
--- Indexes for table `md_department`
+-- Indexes for table `md_designation`
 --
-ALTER TABLE `md_department`
+ALTER TABLE `md_designation`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -1152,7 +1112,7 @@ ALTER TABLE `td_audit_trail`
 -- Indexes for table `td_deductions`
 --
 ALTER TABLE `td_deductions`
-  ADD PRIMARY KEY (`emp_code`) USING BTREE;
+  ADD PRIMARY KEY (`emp_code`,`effective_date`,`catg_id`) USING BTREE;
 
 --
 -- Indexes for table `td_income`
@@ -1210,13 +1170,13 @@ ALTER TABLE `md_branch`
 -- AUTO_INCREMENT for table `md_category`
 --
 ALTER TABLE `md_category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `md_department`
+-- AUTO_INCREMENT for table `md_designation`
 --
-ALTER TABLE `md_department`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+ALTER TABLE `md_designation`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `md_district`
@@ -1258,7 +1218,7 @@ ALTER TABLE `md_ptax`
 -- AUTO_INCREMENT for table `td_audit_trail`
 --
 ALTER TABLE `td_audit_trail`
-  MODIFY `sl_no` int(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=78;
+  MODIFY `sl_no` int(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=90;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
