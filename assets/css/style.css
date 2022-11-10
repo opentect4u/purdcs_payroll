@@ -27782,8 +27782,10 @@ dl li {
 .jsgrid .jsgrid-pager .page-item:active .jsgrid-pager-page a,
 .jsgrid .jsgrid-pager .jsgrid-pager-page .page-item:active a,
 .jsgrid .jsgrid-pager .jsgrid-pager-page:active a {
-  background: #3f93dd;
-  border-color: #3f93dd;
+  /* background: #3f93dd;
+  border-color: #3f93dd; */
+  background: #fda006;
+  border-color: #c4b256;
   color: #ffffff;
 }
 
@@ -32969,7 +32971,8 @@ thead.fixedHeaderTable th {
   font-weight: 400;
   /*background: #3f93dd;*/
   background: rgb(86, 64, 251);
-  background: linear-gradient(90deg, rgb(36, 79, 181) 0%, rgb(50, 165, 221) 100%);
+  /* background: linear-gradient(90deg, rgb(36, 79, 181) 0%, rgb(50, 165, 221) 100%); */
+  background: linear-gradient(90deg, rgb(221, 217, 204) 0%, rgb(187, 164, 42) 100%);
   border-bottom: 1px solid #f3f3f3;
 }
 
@@ -33628,7 +33631,8 @@ thead.fixedHeaderTable th {
 
   .horizontal-menu .bottom-navbar .page-navigation>.nav-item:hover>.nav-link i,
   .horizontal-menu .bottom-navbar .page-navigation>.nav-item:hover>.nav-link .menu-title {
-    color: #3f93dd;
+    /* color: #3f93dd; */
+    color: #ff9f00c4;
     transition: color 1s ease;
   }
 
@@ -33709,7 +33713,8 @@ thead.fixedHeaderTable th {
 .horizontal-menu .bottom-navbar .page-navigation>.nav-item.active>.nav-link .menu-title,
 .horizontal-menu .bottom-navbar .page-navigation>.nav-item.active>.nav-link i,
 .horizontal-menu .bottom-navbar .page-navigation>.nav-item.active>.nav-link .menu-arrow {
-  color: #3f93dd;
+  /* color: #3f93dd; */
+  color: #fda006;
 }
 
 .horizontal-menu .bottom-navbar .page-navigation>.nav-item .submenu {
@@ -33750,7 +33755,8 @@ thead.fixedHeaderTable th {
 }
 
 .horizontal-menu .bottom-navbar .page-navigation>.nav-item .submenu ul li a:hover {
-  color: #3f93dd;
+  /* color: #3f93dd; */
+  color: #ffc76c;
   -webkit-transition: color 0.1s linear;
   -moz-transition: color 0.1s linear;
   -ms-transition: color 0.1s linear;
@@ -33759,11 +33765,13 @@ thead.fixedHeaderTable th {
 }
 
 .horizontal-menu .bottom-navbar .page-navigation>.nav-item .submenu ul li a:hover:before {
-  background: #3f93dd;
+  /* background: #3f93dd; */
+  background: #fda006;
 }
 
 .horizontal-menu .bottom-navbar .page-navigation>.nav-item .submenu ul li a.active {
-  color: #3f93dd;
+  /* color: #3f93dd; */
+  color: #fda006;
 }
 
 .horizontal-menu .bottom-navbar .page-navigation>.nav-item .submenu ul li.active a {

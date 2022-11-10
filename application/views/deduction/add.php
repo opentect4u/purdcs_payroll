@@ -40,7 +40,7 @@
                                             </div>
                                             <div class="col-2 float-right">
                                                 <label for="exampleInputName1">&nbsp;</label>
-                                                <button type="submit" id="submit" name="submit" class="btn btn-primary mr-2 form-control">Populate</button>
+                                                <button type="submit" id="submit" name="submit" class="btn btn-warning text-white mr-2 form-control" <?= $is_active ?>>Populate</button>
                                             </div>
                                         </div>
                                     </div>
@@ -55,9 +55,10 @@
         <?php if (isset($_REQUEST['submit'])) {
             $display = '';
             $disabled = '';
-            if ($selected['catg_id'] == 2) {
-                $display = 'style="display:none;"';
-            } ?>
+            // if ($selected['catg_id'] == 2) {
+            //     $display = 'style="display:none;"';
+            // } 
+        ?>
             <div class="card mt-4">
                 <div class="card-body">
                     <h3>Add Deductions</h3>
@@ -83,6 +84,7 @@
                                                                 <th <?= $display ?>>Income Tax TDS.</th>
                                                                 <th <?= $display ?>>Security</th>
                                                                 <th <?= $display ?>>Insurance</th>
+                                                                <th <?= $display ?>>Other</th>
                                                                 <th>Total Deduction</th>
                                                                 <th>NET SALARY</th>
                                                             </tr>
@@ -98,6 +100,7 @@
                                                             $tot_income_tax_tds = 0;
                                                             $tot_security = 0;
                                                             $tot_insurance = 0;
+                                                            $tot_other = 0;
                                                             $tot_tot_diduction = 0;
                                                             $tot_net_sal = 0;
                                                             if ($sal_list) {
@@ -112,6 +115,7 @@
                                                                         $tot_income_tax_tds += $sal['income_tax_tds'];
                                                                         $tot_security += $sal['security'];
                                                                         $tot_insurance += $sal['insurance'];
+                                                                        $tot_other += $sal['other_did'];
                                                                         $tot_tot_diduction += $sal['tot_diduction'];
                                                                         $tot_net_sal += $sal['net_sal'];
                                                                     }
@@ -170,6 +174,11 @@
                                                                                 <input type="text" class="form-control" name="insurance[]" id="insurance_<?= $i ?>" value="<?= $sal['insurance']; ?>" onchange="cal_deduction(<?= $i ?>)" />
                                                                             </div>
                                                                         </td>
+                                                                        <td <?= $display ?>>
+                                                                            <div class="form-group">
+                                                                                <input type="text" class="form-control" name="other_did[]" id="other_did_<?= $i ?>" value="<?= $sal['other_did']; ?>" onchange="cal_deduction(<?= $i ?>)" />
+                                                                            </div>
+                                                                        </td>
                                                                         <td>
                                                                             <div class="form-group">
                                                                                 <input type="text" class="form-control" name="tot_diduction[]" id="tot_diduction_<?= $i ?>" value="<?= $sal['tot_diduction']; ?>" onchange="cal_deduction(<?= $i ?>)" />
@@ -195,6 +204,7 @@
                                                                 <td <?= $display ?>><span id="tot_income_tax_tds"><?= $tot_income_tax_tds ?></span></td>
                                                                 <td <?= $display ?>><span id="tot_security"><?= $tot_security ?></span></td>
                                                                 <td <?= $display ?>><span id="tot_insurance"><?= $tot_insurance ?></span></td>
+                                                                <td <?= $display ?>><span id="tot_other"><?= $tot_other ?></span></td>
                                                                 <td><span id="tot_tot_diduction"><?= $tot_tot_diduction ?></span></td>
                                                                 <td style="display: none;"><span id="tot_net_sal"><?= $tot_net_sal ?></span></td>
                                                             </tr>
@@ -208,7 +218,7 @@
                                         <input type="hidden" name="catg_id" value="<?= $selected['catg_id']; ?>">
                                         <input type="hidden" name="flag" value="<?= $selected['sal_flag']; ?>">
                                         <div class="mt-3">
-                                            <button type="submit" class="btn btn-primary mr-2" <?= $disabled ?>>Submit</button>
+                                            <button type="submit" class="btn btn-warning text-white mr-2" <?= $disabled ?> <?= $is_active ?>>Submit</button>
                                             <a href="<?= site_url() ?>/slryded" class="btn btn-light">Back</a>
                                         </div>
                                     </form>
@@ -280,9 +290,11 @@
             var income_tax_tds = $('#income_tax_tds_' + id).val();
             var security = $('#security_' + id).val();
             var insurance = $('#insurance_' + id).val();
+            var other = $('#other_did_' + id).val();
+
             var tot_diduction = $('#tot_diduction_' + id).val();
             var net_sal = $('#net_sal_' + id).val();
-            var total_did = parseInt(pf) + parseInt(loan_prin) + parseInt(loan_int) + parseInt(p_tax) + parseInt(income_tax_tds) + parseInt(security) + parseInt(insurance)
+            var total_did = parseInt(pf) + parseInt(loan_prin) + parseInt(loan_int) + parseInt(p_tax) + parseInt(income_tax_tds) + parseInt(security) + parseInt(insurance) + parseInt(other)
 
             $('#tot_diduction_' + id).val(total_did)
 
@@ -300,6 +312,7 @@
             var tot_income_tax_tds = 0;
             var tot_security = 0;
             var tot_insurance = 0;
+            var tot_other = 0;
             var tot_tot_diduction = 0;
             var tot_net_sal = 0;
 
@@ -327,6 +340,11 @@
             $('input[name="insurance[]"]').each(function() {
                 tot_insurance = parseInt(tot_insurance) + parseInt(this.value)
             });
+
+            $('input[name="other_did[]"]').each(function() {
+                tot_other = parseInt(tot_other) + parseInt(this.value)
+            });
+
             $('input[name="tot_diduction[]"]').each(function() {
                 tot_tot_diduction = parseInt(tot_tot_diduction) + parseInt(this.value)
             });
@@ -341,6 +359,7 @@
             $('#tot_income_tax_tds').text(tot_income_tax_tds);
             $('#tot_security').text(tot_security);
             $('#tot_insurance').text(tot_insurance);
+            $('#tot_other').text(tot_other);
             $('#tot_tot_diduction').text(tot_tot_diduction);
             $('#tot_net_sal').text(tot_net_sal);
             $('#dis_tot_net_sal').text(tot_net_sal);

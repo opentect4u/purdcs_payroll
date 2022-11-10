@@ -12,7 +12,7 @@
                           <?php } ?>
                       </div>
                       <div class="col-2">
-                          <a href="<?php echo site_url("slryad"); ?>" class="btn btn-primary customFloat_Uts">Add</a>
+                          <a href="<?php echo site_url("slryad"); ?>" class="btn btn-warning text-white customFloat_Uts" <?= $user_status != 'A' ? 'onclick="return false;"' : '' ?>>Add</a>
                       </div>
                   </div>
                   <br>
@@ -38,7 +38,7 @@
                                               <td><?= $sal->category ?></td>
                                               <td><?= $sal->final_gross ?></td>
                                               <td><a href="slryad?catg_id=<?= $sal->catg_id ?>&sys_dt=<?= $sal->effective_date ?>&flag=1" data-toggle="tooltip" data-placement="bottom" title="Edit">
-                                                      <i class="fa fa-edit fa-2x" style="color: #007bff"></i>
+                                                      <i class="fa fa-edit text-warning fa-2x"></i>
                                                   </a></td>
                                           </tr>
 

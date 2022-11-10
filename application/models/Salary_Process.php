@@ -525,9 +525,6 @@ class Salary_Process extends CI_Model
 
 	function deduction_save($data)
 	{
-		// echo '<pre>';
-		// var_dump($data);
-		// exit;
 		$res_dt = false;
 		for ($i = 0; $i < count($data['emp_code']); $i++) {
 			$this->db->select('emp_code');
@@ -549,6 +546,8 @@ class Salary_Process extends CI_Model
 					// 'gici' => $data['gici'][$i],
 					'income_tax_tds' => $data['income_tax_tds'][$i],
 					'security' => $data['security'][$i],
+					'insurance' => $data['insurance'][$i],
+					'other_did' => $data['other_did'][$i],
 					'tot_diduction' => $data['tot_diduction'][$i],
 					'net_sal' => $data['net_sal'][$i],
 					'modified_by'    => $this->session->userdata['loggedin']['user_id'],
@@ -578,6 +577,8 @@ class Salary_Process extends CI_Model
 					// 'gici' => $data['gici'][$i],
 					'income_tax_tds' => $data['income_tax_tds'][$i],
 					'security' => $data['security'][$i],
+					'insurance' => $data['insurance'][$i],
+					'other_did' => $data['other_did'][$i],
 					'tot_diduction' => $data['tot_diduction'][$i],
 					'net_sal' => $data['net_sal'][$i],
 					'created_by' => $this->session->userdata['loggedin']['user_id'],

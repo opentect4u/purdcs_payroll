@@ -49,7 +49,9 @@
                                                 <td><?= $d_dtls->tot_gross; ?></td>
                                                 <td><?= $d_dtls->tot_sal; ?></td>
                                                 <td>
-                                                    <button class="btn btn-success" id="<?= $d_dtls->trans_no; ?>" date="<?= $d_dtls->trans_date; ?>" catg="<?= $d_dtls->catg_cd; ?>" month="<?= $d_dtls->sal_month; ?>" year="<?= $d_dtls->sal_year; ?>" style="width: 100px;">Approve</button>
+                                                    <?php if ($user_status == 'A') { ?>
+                                                        <button class="btn btn-success" id="<?= $d_dtls->trans_no; ?>" date="<?= $d_dtls->trans_date; ?>" catg="<?= $d_dtls->catg_cd; ?>" month="<?= $d_dtls->sal_month; ?>" year="<?= $d_dtls->sal_year; ?>" style="width: 100px;">Approve</button>
+                                                    <?php } ?>
                                                 </td>
                                             </tr>
                                     <?php

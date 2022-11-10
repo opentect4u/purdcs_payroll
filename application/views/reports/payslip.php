@@ -187,6 +187,13 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($payslip_dtls)) {
                                         <tr>
                                             <td class="left_algn"></td>
                                             <td class="right_algn"></td>
+                                            <td class="left_algn">Other Deduction</td>
+                                            <td></td>
+                                            <td class="right_algn"><?= $payslip_dtls->other_did; ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="left_algn"></td>
+                                            <td class="right_algn"></td>
                                             <td class="left_algn">Total Deduction</td>
                                             <td></td>
                                             <td class="right_algn"><?= $payslip_dtls->tot_diduction; ?></td>
@@ -269,7 +276,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($payslip_dtls)) {
                                                 </div>
                                             </div>
 
-                                            <input type="submit" class="btn btn-info" value="Proceed" />
+                                            <input type="submit" class="btn btn-warning text-white" value="Proceed" />
                                             <button class="btn btn-light">Cancel</button>
                                         </form>
                                     </div>

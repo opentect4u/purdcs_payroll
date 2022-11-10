@@ -65,9 +65,10 @@ class Approves extends CI_Controller
             // echo $this->db->last_query();
             // exit;
 
-            // $erning_dt = $this->Admin_Process->f_get_particulars("td_pay_slip", null, $where1, 0);
-            // $res_dt = $this->save_sal_slip($erning_dt);
-            // $res_dt = json_decode($res_dt);
+            $erning_dt = $this->Admin_Process->f_get_particulars("td_pay_slip", null, $where1, 0);
+            $res_dt = $this->save_sal_slip($erning_dt);
+            $res_dt = json_decode($res_dt);
+
             if ($this->Salary_Process->f_edit("td_pay_slip", $data_array1, $where1)) {
                 $this->session->set_flashdata('msg', 'Successfully Approved!');
             } else {
@@ -78,6 +79,8 @@ class Approves extends CI_Controller
 
         //Unapprove List of Salary
         $approve['unapprove_tot_dtls'] = $this->Salary_Process->generate_slip($trans_dt = null, $month = null, $year = null, $catg_id = null, $trans_no = null, 0);
+        $approve['is_active'] = $_SESSION['loggedin']['user_status'] != 'A' ? 'disabled' : '';
+        $approve['user_status'] = $_SESSION['loggedin']['user_status'];
         $this->load->view('post_login/payroll_main');
         $this->load->view("approve/dashboard", $approve);
         $this->load->view('post_login/footer');
@@ -85,11 +88,11 @@ class Approves extends CI_Controller
 
     function save_sal_slip($data)
     {
-        $url = 'http://localhost:3000';
+        $url = 'https://restaurantapi.opentech4u.co.in';
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
-            CURLOPT_URL => $url . '/sal/save',
+            CURLOPT_URL => $url . '/sal/puri_save',
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => '',
             CURLOPT_MAXREDIRS => 10,

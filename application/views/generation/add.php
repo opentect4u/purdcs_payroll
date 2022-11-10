@@ -54,7 +54,7 @@
                                     ?>
                                         <option value="<?php //echo $m_list->id; 
                                                         ?>" ><?php //echo $m_list->month_name; 
-                                                                                        ?></option>
+                                                                ?></option>
 
                                     <?php
                                     //   }
@@ -72,7 +72,7 @@
                                     </div>
 
 
-                                    <input type="submit" class="btn btn-info" value="Generate New Payslip" />
+                                    <input type="submit" class="btn btn-warning text-white" value="Generate New Payslip" />
                                     <button class="btn btn-light">Cancel</button>
                                 </form>
                             </div>

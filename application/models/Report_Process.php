@@ -106,7 +106,7 @@ class Report_Process extends CI_Model
 		$result = $this->db->query("select a.trans_date, a.trans_no, a.sal_month, a.sal_year, a.emp_code, 
 			a.catg_id, a.basic, a.da, a.sa, a.hra, a.ta, a.da_on_sa, a.da_on_ta, a.ma, a.cash_swa, a.lwp, a.final_gross, 
 			a.pf, a.loan_prin, a.loan_int, a.p_tax, a.gici, a.income_tax_tds, 
-			a.security, a.insurance, a.tot_diduction, a.net_sal, a.remarks, b.emp_name,c.name designation,b.phn_no,b.department,b.pan_no, b.grade, b.ret_dt, b.dob, b.bank_ac_no
+			a.security, a.insurance, a.other_did, a.tot_diduction, a.net_sal, a.remarks, b.emp_name,c.name designation,b.phn_no,b.department,b.pan_no, b.grade, b.ret_dt, b.dob, b.bank_ac_no
 			  from 
 			  td_pay_slip a,md_employee b, md_designation c where a.emp_code=b.emp_code and b.designation=c.id AND a.emp_code = $empno
 			  and a.sal_month=$sal_month and a.sal_year=$sal_yr ");

@@ -6,7 +6,9 @@
                           <div class="col-10">
                               <h3>Unapproved Generation List</h3>
                           </div>
-                          <div class="col-2"><a href="<?php echo site_url("addgen"); ?>" class="btn btn-primary customFloat_Uts">Add</a></div>
+                          <div class="col-2">
+                              <a href="<?php echo site_url("addgen"); ?>" class="btn btn-warning text-white customFloat_Uts" <?= $user_status != 'A' ? 'onclick="return false;"' : '' ?>>Add</a>
+                          </div>
                           <span class="confirm-div" style="float:right; color:green;"></span>
                       </div>
                       <div class="row">
@@ -38,12 +40,12 @@
                                                       <td><?php echo $d_dtls->tot_sal; ?></td>
                                                       <td>
                                                           <a href="vigen?trans_dt=<?= $d_dtls->trans_date ?>&trans_no=<?= $d_dtls->trans_no; ?>&month=<?= $d_dtls->sal_month; ?>&year=<?= $d_dtls->sal_year; ?>&catg_id=<?= $d_dtls->catg_cd ?>" data-toggle="tooltip" data-placement="bottom" title="Edit">
-                                                              <i class="fa fa-eye fa-2x" style="color: #007bff"></i>
+                                                              <i class="fa fa-eye fa-2x text-warning"></i>
                                                           </a>
                                                       </td>
                                                       <td>
                                                           <span type="button" class="delete" date="<?php echo $d_dtls->trans_date; ?>" id="<?php echo $d_dtls->trans_no; ?>" month="<?php echo $d_dtls->sal_month; ?>" year="<?php echo $d_dtls->sal_year; ?>" catg_id="<?= $d_dtls->catg_cd ?>" data-toggle="tooltip" data-placement="bottom" title="Delete">
-                                                              <i class="fa fa-trash-o fa-2x" style="color: #bd2130"></i>
+                                                              <i class="fa fa-trash-o fa-2x text-danger"></i>
                                                           </span>
                                                       </td>
                                                   </tr>

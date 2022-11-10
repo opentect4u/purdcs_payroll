@@ -12,7 +12,7 @@
                           <?php } ?>
                       </div>
                       <div class="col-2">
-                          <small><a href="<?php echo site_url("slrydedad"); ?>" class="btn btn-primary customFloat_Uts">Add</a></small>
+                          <small><a href="<?php echo site_url("slrydedad"); ?>" class="btn btn-warning text-white customFloat_Uts" <?= $user_status != 'A' ? 'onclick="return false;"' : '' ?>>Add</a></small>
                       </div>
                   </div>
                   <br>
@@ -38,7 +38,7 @@
                                               <td><?= $ded->category ?></td>
                                               <td><?= $ded->net_sal ?></td>
                                               <td><a href="slrydedad?catg_id=<?= $ded->catg_id ?>&sys_dt=<?= $ded->effective_date ?>&flag=1" data-toggle="tooltip" data-placement="bottom" title="Edit">
-                                                      <i class="fa fa-edit fa-2x" style="color: #007bff"></i>
+                                                      <i class="fa fa-edit text-warning fa-2x"></i>
                                                   </a></td>
                                           </tr>
 

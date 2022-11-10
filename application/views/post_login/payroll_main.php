@@ -134,20 +134,9 @@
                 </div>
               </li> -->
               <li class="nav-item nav-profile dropdown mr-0 mr-sm-2">
-                <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
-                  <img src="<?= base_url() ?>assets/images/benfed.png" alt="profile" />
-                  <span class="nav-profile-name">PURDCS</span>
+                <a class="nav-link count-indicator dropdown-toggle d-flex align-items-center justify-content-center" href="<?php echo site_url("Payroll_Login/logout") ?>" data-toggle="tooltip" data-placement="bottom" title="Logout">
+                  <i class="mdi mdi-logout text-white"></i>
                 </a>
-                <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
-                  <a class="dropdown-item">
-                    <i class="mdi mdi-settings text-primary"></i>
-                    Settings
-                  </a>
-                  <a class="dropdown-item" href="<?php echo site_url("Payroll_Login/logout") ?>">
-                    <i class="mdi mdi-logout text-primary"></i>
-                    Logout
-                  </a>
-                </div>
               </li>
             </ul>
             <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="horizontal-menu-toggle">
@@ -250,6 +239,7 @@
                     <li class="nav-item"><a href="<?php echo site_url('reports/paystatementreport'); ?>">Salary Statement Month Wise</a></li>
                     <li class="nav-item"><a href="<?php echo site_url('reports/totalearning'); ?>">Total Earning</a></li>
                     <li class="nav-item"><a href="<?php echo site_url('reports/totaldeduction'); ?>">Total Deduction</a></li>
+                    <li class="nav-item"><a href="<?php echo site_url('reports/bank_pay_slip'); ?>">Salary Credit Statement</a></li>
                   <?php } ?>
                 </ul>
               </div>
@@ -258,28 +248,28 @@
               <a href="#" class="nav-link">
                 <!-- <i class="mdi mdi-file-document-box-outline menu-icon"></i> -->
                 <span class="menu-title">Setting</span>
+                <i class="menu-arrow"></i>
               </a>
-              <i class="menu-arrow"></i></a>
               <div class="submenu">
                 <ul class="submenu-item">
                   <!-- <li class="nav-item"><a href="<?php //echo site_url("profile") 
                                                       ?>">Change Password</a></li> -->
-                  <li class="nav-item"><a href="#">Change Password</a></li>
+                  <li class="nav-item"><a href="<?= site_url('prof') ?>">Profile</a></li>
+                  <li class="nav-item"><a href="<?= site_url('chngpass') ?>">Change Password</a></li>
                   <?php if ($this->session->userdata['loggedin']['user_type'] != "U") {
                   ?>
                     <!-- <li class="nav-item"> <a href="<?php //echo site_url('admin/user'); 
                                                         ?>">Create User</a></li> -->
-                    <li class="nav-item"> <a href="#">Create User</a></li>
+                    <li class="nav-item"> <a href="<?= site_url('userlist') ?>">Create User</a></li>
                   <?php } ?>
                 </ul>
               </div>
             </li>
-            <li class="nav-item">
+            <!-- <li class="nav-item">
               <a href="<?php echo site_url("Payroll_Login/logout") ?>" class="nav-link">
-                <!-- <i class="mdi mdi-file-document-box-outline menu-icon"></i> -->
                 <span class="menu-title">Logout</span>
               </a>
-            </li>
+            </li> -->
           </ul>
         </div>
       </nav>

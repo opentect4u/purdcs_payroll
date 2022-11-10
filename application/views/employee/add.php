@@ -139,6 +139,14 @@
                                     <div class="form-group">
                                         <div class="row">
                                             <div class="col-6">
+                                                <label for="exampleInputName1">IFSC Code:</label>
+                                                <input type="text" class="form-control" name="bank_ifsc" id="bank_ifsc" value="" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-6">
                                                 <label for="exampleInputName1">PF A/C No.:</label>
                                                 <input type="text" class="form-control" name="pf_ac_no" id="pf_ac_no" value="" />
                                             </div>
@@ -163,8 +171,8 @@
                                         </div>
                                     </div>
                                     <input type="hidden" name="emp_dist" value="339">
-                                    <button type="submit" class="btn btn-primary mr-2">Submit</button>
-                                    <button class="btn btn-light">Cancel</button>
+                                    <button type="submit" class="btn btn-warning text-white mr-2">Submit</button>
+                                    <button type="button" class="btn btn-light" onclick="window.location.href='<?= site_url() ?>/stfemp'">Cancel</button>
                                 </form>
                             </div>
                         </div>

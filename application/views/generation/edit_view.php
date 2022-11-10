@@ -60,7 +60,7 @@
                                     </div>
                                 </div>
                                 <div class="row text-white ml-1">
-                                    <div class="col-4 p-3" style="background-color: #074fd9;">
+                                    <div class="col-4 p-3" style="background-color: #fda006;">
                                         <label>TOTAL PAYMENT: </label>
                                         <span><?= $sal_dtls->tot_sal ?></span>
                                     </div>

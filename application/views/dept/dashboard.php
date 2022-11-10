@@ -7,7 +7,9 @@
               <h3>Designation List</h3>
             </div>
             <div class="col-2">
-              <small><a href="<?php echo base_url(); ?>index.php/adept" class="btn btn-primary customFloat_Uts">Add</a></small>
+              <small>
+                <a href="<?php echo base_url(); ?>index.php/adept" class="btn btn-warning text-white customFloat_Uts" <?= $user_status != 'A' ? 'onclick="return false;"' : '' ?>>Add</a>
+              </small>
             </div>
           </div>
           <br>
@@ -36,7 +38,7 @@
                           <td><?php echo $d_dtls->name; ?></td>
                           <td>
                             <a href="<?php echo base_url(); ?>index.php/edept?id=<?php echo $d_dtls->id; ?>" data-toggle="tooltip" data-placement="bottom" title="Edit">
-                              <i class="fa fa-edit fa-2x" style="color: #007bff"></i>
+                              <i class="fa fa-edit fa-2x text-warning"></i>
                             </a>
                           </td>
 

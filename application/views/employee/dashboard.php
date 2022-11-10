@@ -45,7 +45,7 @@
             </div>
 
             <div class="col-1">
-              <small><a href="<?php echo site_url("emadst"); ?>" class="btn btn-primary customFloat_Uts">Add</a></small>
+              <small><a href="<?php echo site_url("emadst"); ?>" class="btn btn-warning text-white customFloat_Uts" <?= $user_status != 'A' ? 'onclick="return false;"' : '' ?>>Add</a></small>
             </div>
           </div>
           <br>
@@ -77,13 +77,15 @@
                           <td><?= $e_dtls->district_name; ?></td>
                           <td>
                             <a href="estem?emp_code=<?= $e_dtls->emp_code; ?>" data-toggle="tooltip" data-placement="bottom" title="Edit">
-                              <i class="fa fa-edit fa-2x" style="color: #007bff"></i>
+                              <i class="fa fa-edit text-warning fa-2x"></i>
                             </a>
                           </td>
                           <td>
-                            <a type="button" class="delete" id="<?= $e_dtls->emp_code; ?>" data-toggle="tooltip" data-placement="bottom" title="Delete">
-                              <i class="fa fa-trash fa-2x"></i>
-                            </a>
+                            <?php if ($user_status == 'A') { ?>
+                              <a type="button" class="delete text-danger" id="<?= $e_dtls->emp_code; ?>" data-toggle="tooltip" data-placement="bottom" title="Delete">
+                                <i class="fa fa-trash fa-2x"></i>
+                              </a>
+                            <?php } ?>
                           </td>
                         </tr>
                     <?php

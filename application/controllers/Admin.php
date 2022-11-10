@@ -75,6 +75,8 @@ class Admin extends CI_Controller
 	{
 
 		$data['ptax'] = $this->Admin_Process->f_get_particulars("md_ptax", NULL, NULL, 0);
+		$data['is_active'] = $_SESSION['loggedin']['user_status'] != 'A' ? 'disabled' : '';
+		$data['user_status'] = $_SESSION['loggedin']['user_status'];
 		$this->load->view('post_login/payroll_main');
 		$this->load->view('ptax/dashboard', $data);
 		$this->load->view('post_login/footer');
@@ -105,6 +107,8 @@ class Admin extends CI_Controller
 			);
 
 			$data['ptax_dtls']  =  $this->Admin_Process->f_get_particulars("md_ptax", NULL, $where, 1);
+			$data['is_active'] = $_SESSION['loggedin']['user_status'] != 'A' ? 'disabled' : '';
+			$data['user_status'] = $_SESSION['loggedin']['user_status'];
 			$this->load->view('post_login/payroll_main');
 			$this->load->view("ptax/edit", $data);
 			$this->load->view('post_login/footer');
@@ -115,6 +119,8 @@ class Admin extends CI_Controller
 
 		$select = array("id", "name");
 		$dept['dept_dtls']    =   $this->Admin_Process->f_get_particulars("md_designation", $select, NULL, 0);
+		$dept['is_active'] = $_SESSION['loggedin']['user_status'] != 'A' ? 'disabled' : '';
+		$dept['user_status'] = $_SESSION['loggedin']['user_status'];
 		$this->load->view('post_login/payroll_main');
 		$this->load->view("dept/dashboard", $dept);
 		$this->load->view('post_login/footer');
@@ -145,8 +151,10 @@ class Admin extends CI_Controller
 				redirect('dept');
 			}
 		} else {
+			$data['is_active'] = $_SESSION['loggedin']['user_status'] != 'A' ? 'disabled' : '';
+			$data['user_status'] = $_SESSION['loggedin']['user_status'];
 			$this->load->view('post_login/payroll_main');
-			$this->load->view("dept/add");
+			$this->load->view("dept/add", $data);
 			$this->load->view('post_login/footer');
 		}
 	}
@@ -178,6 +186,10 @@ class Admin extends CI_Controller
 			);
 
 			$data['dept_dtls']  =  $this->Admin_Process->f_get_particulars("md_designation", NULL, $where, 1);
+
+			$data['is_active'] = $_SESSION['loggedin']['user_status'] != 'A' ? 'disabled' : '';
+			$data['user_status'] = $_SESSION['loggedin']['user_status'];
+
 			$this->load->view('post_login/payroll_main');
 			$this->load->view("dept/edit", $data);
 
@@ -205,7 +217,8 @@ class Admin extends CI_Controller
 		$employee['employee_dtls']    =   $this->Admin_Process->f_get_particulars($table_name, $select, $where, 0);
 		// echo $this->db->last_query();
 		// exit;
-
+		$employee['is_active'] = $_SESSION['loggedin']['user_status'] != 'A' ? 'disabled' : '';
+		$employee['user_status'] = $_SESSION['loggedin']['user_status'];
 		//Category List 
 		// $employee['category_dtls']    =   $this->Admin_Process->f_get_particulars("md_category", NULL, NULL, 0);
 
@@ -252,12 +265,13 @@ class Admin extends CI_Controller
 						"email"            =>  $this->input->post('email'),
 						"designation"      =>  $this->input->post('designation'),
 						"department"       =>  $this->input->post('department'),
-						"grade"       =>  $this->input->post('grade'),
+						"grade"       	   =>  $this->input->post('grade'),
 						"emp_addr"         =>  $this->input->post('emp_addr'),
 						"pan_no"           =>  $this->input->post('pan_no'),
 						"aadhar_no"        =>  $this->input->post('aadhar'),
 						"bank_name"        =>  $this->input->post('bank_name'),
 						"bank_ac_no"       =>  $this->input->post('bank_ac_no'),
+						"bank_ifsc"        =>  $this->input->post('bank_ifsc'),
 						"pf_ac_no"         =>  $this->input->post('pf_ac_no'),
 						"uan"              =>  $this->input->post('uan'),
 						"basic_pay"        =>  $this->input->post('basic_pay'),
@@ -337,6 +351,7 @@ class Admin extends CI_Controller
 					"aadhar_no"        =>  $this->input->post('aadhar'),
 					"bank_name"        =>  $this->input->post('bank_name'),
 					"bank_ac_no"       =>  $this->input->post('bank_ac_no'),
+					"bank_ifsc"        =>  $this->input->post('bank_ifsc'),
 					"pf_ac_no"         =>  $this->input->post('pf_ac_no'),
 					"uan"              =>  $this->input->post('uan'),
 					"basic_pay"        =>  $this->input->post('basic_pay'),
@@ -370,7 +385,7 @@ class Admin extends CI_Controller
 				"emp_code", "emp_name", "emp_catg", "emp_dist", "dob", "email", "phn_no",
 				"designation", "department", "grade", "emp_addr",
 				"pan_no", "bank_name", "bank_ac_no", "join_dt", "ret_dt",
-				"pf_ac_no", "uan", "basic_pay", "aadhar_no", "emp_status"
+				"pf_ac_no", "uan", "basic_pay", "aadhar_no", "emp_status", "bank_ifsc"
 			);
 
 			$where = array(
@@ -426,6 +441,8 @@ class Admin extends CI_Controller
 		$select = 'id, category';
 		$catg_list = $this->Admin_Process->f_get_particulars("md_category", $select, NULL, 0);
 		$data['catg_list'] = $catg_list;
+		$data['is_active'] = $_SESSION['loggedin']['user_status'] != 'A' ? 'disabled' : '';
+		$data['user_status'] = $_SESSION['loggedin']['user_status'];
 		$this->load->view('post_login/payroll_main');
 		$this->load->view("catg/view", $data);
 		$this->load->view('post_login/footer');
@@ -468,6 +485,10 @@ class Admin extends CI_Controller
 			);
 		}
 		$data['selected'] = $selected;
+
+		$data['is_active'] = $_SESSION['loggedin']['user_status'] != 'A' ? 'disabled' : '';
+		$data['user_status'] = $_SESSION['loggedin']['user_status'];
+
 		$this->load->view('post_login/payroll_main');
 		$this->load->view("catg/entry", $data);
 		$this->load->view('post_login/footer');

@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
   <div class="main-panel">
     <div class="content-wrapper">
       <div class="card">
-        <div class="card-body">
+        <div class="card-body" id='divToPrint'>
           <div class="row">
             <div class="col-2 payslip_logo_Uts"><a href="javascript:void()"><img src="<?= base_url() ?>assets/images/benfed.png" alt="logo" /></a></div>
             <div class="col-10 payslip_logo_Desc_Uts">
@@ -165,6 +165,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
           </div>
         </div>
       </div>
+      <center>
+        <button type='button' class="btn btn-warning text-white mt-3" onclick='printDiv();'>Print</button>
+      </center>
     </div>
 
 
@@ -199,7 +202,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                         </div>
                       </div>
 
-                      <input type="submit" class="btn btn-info" value="Proceed" />
+                      <input type="submit" class="btn btn-warning text-white" value="Proceed" />
                       <button class="btn btn-light">Cancel</button>
                     </form>
                   </div>

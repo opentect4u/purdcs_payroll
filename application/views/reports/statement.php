@@ -209,7 +209,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <input type="submit" class="btn btn-info" value="Proceed" onclick="return checkVal();" />
+                                            <input type="submit" class="btn btn-warning text-white" value="Proceed" onclick="return checkVal();" />
                                             <button class="btn btn-light">Cancel</button>
                                         </form>
                                     </div>

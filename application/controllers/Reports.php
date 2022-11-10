@@ -219,4 +219,41 @@ class Reports extends CI_Controller
             $this->load->view('post_login/footer');
         }
     }
+
+    function bank_pay_slip()
+    {
+        if ($_SERVER['REQUEST_METHOD'] == "POST") {
+
+            //Payslip
+            $sal_month  = $this->input->post('sal_month');
+            $sal_yr     = $this->input->post('year');
+
+            $whr = array(
+                'a.emp_code=b.emp_code' => null,
+                "a.sal_month" => $sal_month,
+                "a.sal_year" =>  $sal_yr
+            );
+            $select = 'a.emp_code, b.emp_name, b.bank_name, b.bank_ac_no, b.bank_ifsc, a.net_sal';
+
+            $payslip['payslip_dtls']    =   $this->Report_Process->f_get_particulars("td_pay_slip a, md_employee b", $select, $whr, 0);
+
+            $this->load->view('post_login/payroll_main');
+            $this->load->view("reports/bank_pay", $payslip);
+            $this->load->view('post_login/footer');
+        } else {
+
+            //Month List
+            $payslip['month_list'] =   $this->Report_Process->f_get_particulars("md_month", NULL, NULL, 0);
+            //For Current Date
+            $payslip['sys_date']   =   $_SESSION['sys_date'];
+
+            //Employee List
+            unset($select);
+            $select = array("emp_code", "emp_name");
+            $payslip['emp_list']   =   $this->Report_Process->f_get_particulars("md_employee", $select, array("emp_catg IN (1,2,3)" => NULL), 0);
+            $this->load->view('post_login/payroll_main');
+            $this->load->view("reports/bank_pay", $payslip);
+            $this->load->view('post_login/footer');
+        }
+    }
 }

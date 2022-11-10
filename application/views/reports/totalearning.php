@@ -152,7 +152,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
       </div>
       <!-- <input type='button' id='btn' value='Print' onclick='printDiv();'> -->
       <center>
-        <button type='button' class="btn btn-primary mt-3" onclick='printDiv();'>Print</button>
+        <button type='button' class="btn btn-warning text-white mt-3" onclick='printDiv();'>Print</button>
       </center>
     </div>
 
@@ -188,7 +188,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                         </div>
                       </div>
 
-                      <input type="submit" class="btn btn-info" value="Proceed" />
+                      <input type="submit" class="btn btn-warning text-white" value="Proceed" />
                       <button class="btn btn-light">Cancel</button>
                     </form>
                   </div>

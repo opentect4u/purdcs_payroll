@@ -172,6 +172,14 @@
                                     <div class="form-group">
                                         <div class="row">
                                             <div class="col-6">
+                                                <label for="exampleInputName1">IFSC Code:</label>
+                                                <input type="text" class="form-control" name="bank_ifsc" id="bank_ifsc" value="<?php echo $employee_dtls->bank_ifsc; ?>" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-6">
                                                 <label for="exampleInputName1">PF A/C No.:</label>
                                                 <input type="text" class="form-control" name="pf_ac_no" id="pf_ac_no" value="<?php echo $employee_dtls->pf_ac_no; ?>" />
                                             </div>

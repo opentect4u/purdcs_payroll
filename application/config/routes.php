@@ -1,5 +1,5 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 /*
 | -------------------------------------------------------------------------
@@ -40,13 +40,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'login';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
-$route['vlsedt'] = 'admin/parameter_edit'; 
+$route['vlsedt'] = 'admin/parameter_edit';
 $route['vls'] = 'admin/parameter';
 $route['ptax'] = 'admin/ptax';
 $route['pedit'] = 'admin/ptax_edit';
-$route['dept'] = 'admin/dept'; 
+$route['dept'] = 'admin/dept';
 $route['adept'] = 'admin/dept_add';
-$route['edept'] = 'admin/dept_edit'; 
+$route['edept'] = 'admin/dept_edit';
 $route['stfemp'] = 'admin/employee';
 $route['emadst'] = 'admin/employee_add';
 $route['dstf'] = 'admin/employee_delete';
@@ -54,7 +54,7 @@ $route['estem'] = 'admin/employee_edit';
 $route['slrydtl'] = 'salary/earning';
 $route['slryad'] = 'salary/earning_add';
 $route['salsv'] = 'salary/earning_save';
-$route['slryed'] = 'salary/earning_edit'; 
+$route['slryed'] = 'salary/earning_edit';
 $route['payapprv'] = 'approves/payapprove';
 $route['slryded'] = 'salary/deduction';
 $route['slrydedad'] = 'salary/deduction_add';
@@ -72,7 +72,13 @@ $route['scatg'] = 'admin/category_seve'; // SAVE
 /*$route['slrydeded'] = 'salary/deduction_edit';
 $route['deddl'] = 'salary/deduction_delete';*/
 // $route['paysliprep'] = 'reports/payslipreport';
+
 //For Profile
-$route['profile'] = 'profiles';
-$route['profile/(:any)/(:any)'] = 'profiles/f_$1_$2';
-$route['profile/(:any)'] = 'profiles/f_$1';
+$route['prof'] = 'profile/index';
+$route['chngpass'] = 'profile/change_pass';
+$route['userlist'] = 'profile/create_user_view';
+$route['useredit'] = 'profile/create_user_edit';
+$route['usersave'] = 'profile/create_user_save';
+// $route['profile'] = 'profiles';
+// $route['profile/(:any)/(:any)'] = 'profiles/f_$1_$2';
+// $route['profile/(:any)'] = 'profiles/f_$1';

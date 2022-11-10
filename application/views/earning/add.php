@@ -40,7 +40,7 @@
                                             </div>
                                             <div class="col-2 float-right">
                                                 <label for="exampleInputName1">&nbsp;</label>
-                                                <button type="submit" id="submit" name="submit" class="btn btn-primary mr-2 form-control">Populate</button>
+                                                <button type="submit" id="submit" name="submit" class="btn btn-warning text-white mr-2 form-control" <?= $is_active ?>>Populate</button>
                                             </div>
                                         </div>
                                     </div>
@@ -163,7 +163,7 @@
                                         <input type="hidden" name="catg_id" value="<?= $selected['catg_id']; ?>">
                                         <input type="hidden" name="flag" value="<?= $selected['sal_flag']; ?>">
                                         <div class="mt-3">
-                                            <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                                            <button type="submit" class="btn btn-warning text-white mr-2" <?= $is_active ?>>Submit</button>
                                             <a href="<?= site_url() ?>/slrydtl" class="btn btn-light">Back</a>
                                         </div>
                                     </form>

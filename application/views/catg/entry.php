@@ -67,14 +67,14 @@
                                                 <input type="text" class="form-control" name="ta" id="ta" value="<?php echo $selected['ta']; ?>" />
                                             </div>
                                             <div class="col-6">
-                                                <label for="exampleInputName1">M.A.(%):</label>
+                                                <label for="exampleInputName1">M.A.:</label>
                                                 <input type="text" class="form-control required" name="ma" id="ma" value="<?php echo $selected['ma']; ?>" />
                                             </div>
 
                                         </div>
                                     </div>
                                     <input type="hidden" name="id" value="<?= $selected['id'] ?>">
-                                    <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                                    <button type="submit" class="btn btn-warning text-white mr-2" <?= $is_active ?>>Submit</button>
                                     <button class="btn btn-light">Cancel</button>
                                 </form>
                             </div>

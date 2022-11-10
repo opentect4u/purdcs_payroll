@@ -19,6 +19,8 @@ class Salary extends CI_Controller
         $sal_dtls = $this->Salary_Process->calculate_final_gross();
         $i = 0;
         $earning['sal_dtls'] = $sal_dtls;
+        $earning['is_active'] = $_SESSION['loggedin']['user_status'] != 'A' ? 'disabled' : '';
+        $earning['user_status'] = $_SESSION['loggedin']['user_status'];
 
         $this->load->view('post_login/payroll_main');
         $this->load->view("earning/dashboard", $earning);
@@ -105,7 +107,9 @@ class Salary extends CI_Controller
         $data = array(
             'selected' => $selected,
             'catg_list' => $catg_list,
-            'sal_list' => $sal_list
+            'sal_list' => $sal_list,
+            'is_active' => $_SESSION['loggedin']['user_status'] != 'A' ? 'disabled' : '',
+            'user_status' => $_SESSION['loggedin']['user_status']
         );
         $this->load->view('post_login/payroll_main');
         $this->load->view("earning/add", $data);
@@ -292,6 +296,8 @@ class Salary extends CI_Controller
     {                       //Deduction Dashboard
 
         $data['deduction_list'] = $this->Salary_Process->calculate_final_deduction();
+        $data['is_active'] = $_SESSION['loggedin']['user_status'] != 'A' ? 'disabled' : '';
+        $data['user_status'] = $_SESSION['loggedin']['user_status'];
         $this->load->view('post_login/payroll_main');
         $this->load->view("deduction/dashboard", $data);
         $this->load->view('post_login/footer');
@@ -328,7 +334,8 @@ class Salary extends CI_Controller
                         'gici' => $dt->gici,
                         'income_tax_tds' => $dt->income_tax_tds,
                         'security' => $dt->security,
-                        'insurance' => $dt->insurance,
+                            'insurance' => $dt->insurance,
+                            'other_did' => $dt->other_did,
                         'tot_diduction' => $dt->tot_diduction,
                         'net_sal' => $dt->net_sal
                     );
@@ -361,6 +368,7 @@ class Salary extends CI_Controller
                         'income_tax_tds' => 0,
                         'security' => 0,
                         'insurance' => 0,
+                        'other_did' => 0,
                         'tot_diduction' => $sal ? $pf + $ptax : 'Fill Income First',
                         'net_sal' => $sal ? $sal->final_gross - ($pf + $ptax) : 'Fill Income First'
                     );
@@ -376,7 +384,9 @@ class Salary extends CI_Controller
         $data = array(
             'selected' => $selected,
             'catg_list' => $catg_list,
-            'sal_list' => $sal_list
+            'sal_list' => $sal_list,
+            'is_active' => $_SESSION['loggedin']['user_status'] != 'A' ? 'disabled' : '',
+            'user_status' => $_SESSION['loggedin']['user_status']
         );
         $this->load->view('post_login/payroll_main');
         $this->load->view("deduction/add", $data);
@@ -585,6 +595,8 @@ class Salary extends CI_Controller
         //Generation Details
         // $generation['generation_dtls']  =   $this->Salary_Process->f_get_particulars("td_salary", NULL, array("approval_status" => 'U'), 0);
         $generation['generation_dtls']  =   $this->Salary_Process->generate_slip($trans_dt = null, $month = null, $year = null, $catg_id = null, $trans_no = null, 0);
+        $generation['is_active'] = $_SESSION['loggedin']['user_status'] != 'A' ? 'disabled' : '';
+        $generation['user_status'] = $_SESSION['loggedin']['user_status'];
         // echo $this->db->last_query();
         // exit;
 
@@ -722,6 +734,8 @@ class Salary extends CI_Controller
                             // 'gici' => $deduction_dt->gici,
                             'income_tax_tds' => $deduction_dt->income_tax_tds,
                             'security' => $deduction_dt->security,
+                            'insurance' => $deduction_dt->insurance,
+                            'other_did' => $deduction_dt->other_did,
                             'tot_diduction' => $deduction_dt->tot_diduction,
                             'net_sal' => $deduction_dt->net_sal,
                             'remarks' => 'System Generated',
