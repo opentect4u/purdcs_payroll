@@ -500,6 +500,17 @@ class Salary_Process extends CI_Model
 		return $query->row();
 	}
 
+	function get_last_instl_no($emp_code)
+	{
+		$this->db->select('instal_no');
+		$this->db->where(array(
+			'emp_code' => $emp_code,
+			'effective_date = (SELECT MAX(b.effective_date) FROM td_deductions b)' => null
+		));
+		$query = $this->db->get('td_deductions');
+		return $query->row();
+	}
+
 	function get_ptx($gross)
 	{
 		$this->db->select('ptax');
@@ -540,8 +551,8 @@ class Salary_Process extends CI_Model
 				$input = array(
 					'gross' => $data['gross'][$i],
 					'pf' => $data['pf'][$i],
-					'loan_prin' => $data['loan_prin'][$i],
-					'loan_int' => $data['loan_int'][$i],
+					'loan_emi' => $data['loan_prin'][$i],
+					'instal_no' => $data['loan_int'][$i],
 					'p_tax' => $data['p_tax'][$i],
 					// 'gici' => $data['gici'][$i],
 					'income_tax_tds' => $data['income_tax_tds'][$i],
@@ -571,8 +582,8 @@ class Salary_Process extends CI_Model
 					'catg_id' => $data['catg_id'],
 					'gross' => $data['gross'][$i],
 					'pf' => $data['pf'][$i],
-					'loan_prin' => $data['loan_prin'][$i],
-					'loan_int' => $data['loan_int'][$i],
+					'loan_emi' => $data['loan_prin'][$i],
+					'instal_no' => $data['loan_int'][$i],
 					'p_tax' => $data['p_tax'][$i],
 					// 'gici' => $data['gici'][$i],
 					'income_tax_tds' => $data['income_tax_tds'][$i],

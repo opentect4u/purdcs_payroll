@@ -77,8 +77,8 @@
                                                                 <th>Employee</th>
                                                                 <th>GROSS SALARY</th>
                                                                 <th>Service P.F.</th>
-                                                                <th <?= $display ?>>Loan Prin.</th>
-                                                                <th <?= $display ?>>Loan Int</th>
+                                                                <th <?= $display ?>>Loan EMI</th>
+                                                                <th <?= $display ?>>Installment No.</th>
                                                                 <th>P.Tax</th>
                                                                 <!-- <th <?= $display ?>>G.I.C.I</th> -->
                                                                 <th <?= $display ?>>Income Tax TDS.</th>
@@ -108,8 +108,8 @@
                                                                 foreach ($sal_list as $sal) {
                                                                     if ($sal['gross'] > 0) {
                                                                         $tot_pf += $sal['pf'];
-                                                                        $loan_prin += $sal['loan_prin'];
-                                                                        $loan_int += $sal['loan_int'];
+                                                                        $loan_prin += $sal['loan_emi'];
+                                                                        $loan_int += $sal['instal_no'];
                                                                         $tot_p_tax += $sal['p_tax'];
                                                                         // $tot_gici += $sal['gici'];
                                                                         $tot_income_tax_tds += $sal['income_tax_tds'];
@@ -141,12 +141,12 @@
                                                                         </td>
                                                                         <td <?= $display ?>>
                                                                             <div class="form-group">
-                                                                                <input type="text" class="form-control" name="loan_prin[]" id="loan_prin_<?= $i ?>" value="<?= $sal['loan_prin']; ?>" onchange="cal_deduction(<?= $i ?>)" />
+                                                                                <input type="text" class="form-control" name="loan_prin[]" id="loan_prin_<?= $i ?>" value="<?= $sal['loan_emi']; ?>" onchange="cal_deduction(<?= $i ?>)" />
                                                                             </div>
                                                                         </td>
                                                                         <td <?= $display ?>>
                                                                             <div class="form-group">
-                                                                                <input type="text" class="form-control" name="loan_int[]" id="loan_int_<?= $i ?>" value="<?= $sal['loan_int']; ?>" onchange="cal_deduction(<?= $i ?>)" />
+                                                                                <input type="text" class="form-control" name="loan_int[]" id="loan_int_<?= $i ?>" value="<?= $sal['instal_no']; ?>" onchange="cal_deduction(<?= $i ?>)" />
                                                                             </div>
                                                                         </td>
                                                                         <td>
@@ -199,7 +199,8 @@
                                                                 <td colspan="2">TOTAL: </td>
                                                                 <td><span id="tot_pf"><?= $tot_pf ?></span></td>
                                                                 <td <?= $display ?>><span id="loan_prin"><?= $loan_prin ?></span></td>
-                                                                <td <?= $display ?>><span id="loan_int"><?= $loan_int ?></span></td>
+                                                                <td></td>
+                                                                <!-- <td <?= $display ?>><span id="loan_int"><?= $loan_int ?></span></td> -->
                                                                 <td><span id="tot_p_tax"><?= $tot_p_tax ?></span></td>
                                                                 <td <?= $display ?>><span id="tot_income_tax_tds"><?= $tot_income_tax_tds ?></span></td>
                                                                 <td <?= $display ?>><span id="tot_security"><?= $tot_security ?></span></td>
@@ -284,7 +285,8 @@
             var gross = $('#gross_' + id).val();
             var pf = $('#pf_' + id).val();
             var loan_prin = $('#loan_prin_' + id).val();
-            var loan_int = $('#loan_int_' + id).val();
+            // var loan_int = $('#loan_int_' + id).val();
+            var loan_int = 0;
             var p_tax = $('#p_tax_' + id).val();
             // var gici = $('#gici_' + id).val();
             var income_tax_tds = $('#income_tax_tds_' + id).val();
@@ -322,9 +324,9 @@
             $('input[name="loan_prin[]"]').each(function() {
                 tot_loan_prin = parseInt(tot_loan_prin) + parseInt(this.value)
             });
-            $('input[name="loan_int[]"]').each(function() {
-                tot_loan_int = parseInt(tot_loan_int) + parseInt(this.value)
-            });
+            // $('input[name="loan_int[]"]').each(function() {
+            //     tot_loan_int = parseInt(tot_loan_int) + parseInt(this.value)
+            // });
             $('input[name="p_tax[]"]').each(function() {
                 tot_p_tax = parseInt(tot_p_tax) + parseInt(this.value)
             });

@@ -328,14 +328,14 @@ class Salary extends CI_Controller
                         'emp_code' => $dt->emp_code,
                         'gross' => $dt->gross,
                         'pf' => $dt->pf,
-                        'loan_prin' => $dt->loan_prin,
-                        'loan_int' => $dt->loan_int,
+                        'loan_emi' => $dt->loan_emi,
+                        'instal_no' => $dt->instal_no,
                         'p_tax' => $dt->p_tax,
                         'gici' => $dt->gici,
                         'income_tax_tds' => $dt->income_tax_tds,
                         'security' => $dt->security,
-                            'insurance' => $dt->insurance,
-                            'other_did' => $dt->other_did,
+                        'insurance' => $dt->insurance,
+                        'other_did' => $dt->other_did,
                         'tot_diduction' => $dt->tot_diduction,
                         'net_sal' => $dt->net_sal
                     );
@@ -355,14 +355,15 @@ class Salary extends CI_Controller
                     $pf = $pf_val > $sal_cal->pf_max ? $sal_cal->pf_max : ($pf_val < $sal_cal->pf_min ? $sal_cal->pf_min : $pf_val);
                     $ptax_val = $sal ? $this->Salary_Process->get_ptx($sal->final_gross) : 'Fill Income First';
                     $ptax = $sal ? $ptax_val->ptax : 'Fill Income First';
+                    $last_deduction = $this->Salary_Process->get_last_instl_no($emp->emp_code);
 
                     $sal_list[$i] = array(
                         'emp_name' => $emp->emp_name,
                         'emp_code' => $emp->emp_code,
                         'gross' => $sal ? $sal->final_gross : 'Fill Income First',
                         'pf' => $pf,
-                        'loan_prin' => 0,
-                        'loan_int' => 0,
+                        'loan_emi' => 0,
+                        'instal_no' => $last_deduction ? ($last_deduction->instal_no > 0 ? $last_deduction->instal_no + 1 : 1) : 1,
                         'p_tax' => $ptax,
                         'gici' => 0,
                         'income_tax_tds' => 0,
@@ -728,8 +729,8 @@ class Salary extends CI_Controller
                             'lwp' => $erning_dt->lwp,
                             'final_gross' => $erning_dt->final_gross,
                             'pf' => $deduction_dt->pf,
-                            'loan_prin' => $deduction_dt->loan_prin,
-                            'loan_int' => $deduction_dt->loan_int,
+                            'loan_prin' => $deduction_dt->loan_emi,
+                            'loan_int' => $deduction_dt->instal_no,
                             'p_tax' => $deduction_dt->p_tax,
                             // 'gici' => $deduction_dt->gici,
                             'income_tax_tds' => $deduction_dt->income_tax_tds,
