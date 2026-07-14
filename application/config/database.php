@@ -75,9 +75,9 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'synwebmysql-1.c98wsim6cvnq.ap-south-2.rds.amazonaws.com',
-	'username' => 'purdcs_user',
-	'password' => 'SynergicWeb@2020',
+	'hostname' => 'localhost',
+	'username' => 'root',
+	'password' => '',
 	'database' => 'purdcs_payroll',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
