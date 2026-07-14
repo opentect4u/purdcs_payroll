@@ -42,6 +42,17 @@
                                                 ?>
                                                 </select>
                                             </div>
+                                            <div class="col-6">
+                                                <label for="exampleInputName1">Branch:</label>
+                                                <select class="form-control required" name="br_code" id="br_code">
+                                                    <option value="">Select Branch</option>
+                                                    <?php foreach ($br_dtls as $br) { ?>
+                                                        <option value="<?php echo $br->id ?>">
+                                                            <?php echo $br->branch_name; ?>
+                                                        </option>
+                                                    <?php } ?>
+                                                </select>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -109,7 +120,7 @@
                                     </div>
                                     <div class="form-header">
 
-                                        <h4>Basic Pay</h4>
+                                        <h4>Payroll Information</h4>
 
                                     </div>
                                     <div class="form-group">
@@ -119,6 +130,38 @@
                                                 <input type="text" class="form-control required" name="basic_pay" required id="basic_pay" value="" />
                                             </div>
 
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <label for="hra">HRA:<span class="requiredfield">*</span></label>
+                                                <input type="text" class="form-control required" name="hra" required id="hra" value="" />
+                                            </div>
+                                            <div class="col-6">
+                                                <label for="ma">Medical Allowance:<span class="requiredfield">*</span></label>
+                                                <input type="text" class="form-control required" name="ma" required id="ma" value="" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <label for="conveyance">Conveyance:<span class="requiredfield">*</span></label>
+                                                <input type="text" class="form-control required" name="conveyance" required id="conveyance" value="" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <label for="security">Security:<span class="requiredfield">*</span></label>
+                                                <input type="text" class="form-control required" name="security" required id="security" value="" />
+                                            </div>
+                                            <div class="col-6">
+                                                <label for="insurance">Insurance:<span class="requiredfield">*</span></label>
+                                                <input type="text" class="form-control required" name="insurance" required id="insurance" value="" />
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="form-header">

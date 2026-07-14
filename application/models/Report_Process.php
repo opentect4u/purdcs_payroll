@@ -73,7 +73,7 @@ class Report_Process extends CI_Model
 		return;
 	}
 
-	public function f_get_totaldeduction($from_date, $to_date)
+	public function f_get_totaldeduction($from_date, $to_date, $br_code = 0)
 	{
 		$this->db->select('a.emp_code, SUM(a.pf) pf, SUM(a.loan_prin)loan_prin, SUM(a.loan_int)loan_int,
 		 SUM(a.p_tax)p_tax, SUM(a.gici)gici, SUM(a.income_tax_tds)income_tax_tds, SUM(a.security) security, SUM(a.insurance) insurance, 
@@ -82,12 +82,13 @@ class Report_Process extends CI_Model
 			'a.emp_code=b.emp_code' => null,
 			'a.sal_month BETWEEN ' . date('m', strtotime($from_date)) . ' AND ' . date('m', strtotime($to_date)) => null
 		));
+		if($br_code > 0) $this->db->where('a.br_code', $br_code);
 		$this->db->group_by('a.emp_code');
 		$query = $this->db->get('td_pay_slip a, md_employee b');
 		return $query->result();
 	}
 
-	public function f_get_totalearning($from_date, $to_date)
+	public function f_get_totalearning($from_date, $to_date, $br_code = 0)
 	{
 		$this->db->select('a.emp_code, SUM(a.da) da, SUM(a.sa) sa, SUM(a.hra) hra, SUM(a.ta) ta, 
 		SUM(a.da_on_sa) da_on_sa, SUM(a.da_on_ta) da_on_ta, SUM(a.ma) ma, SUM(a.cash_swa) cash_swa, b.emp_name, SUM(a.lwp) lwp, SUM(a.final_gross) final_gross');
@@ -95,6 +96,7 @@ class Report_Process extends CI_Model
 			'a.emp_code=b.emp_code' => null,
 			'a.sal_month BETWEEN ' . date('m', strtotime($from_date)) . ' AND ' . date('m', strtotime($to_date)) => null
 		));
+		if($br_code > 0) $this->db->where('a.br_code', $br_code);
 		$this->db->group_by('a.emp_code');
 		$query = $this->db->get('td_pay_slip a, md_employee b');
 		return $query->result();
@@ -125,5 +127,18 @@ class Report_Process extends CI_Model
 		//$result	=	$this->db->query($sql);
 
 		return $result->row();
+	}
+
+	function get_consolidated_sal($frm_dt, $to_dt, $year, $emp_code){
+		$this->db->select('a.trans_date, a.trans_no, a.sal_month, a.sal_year, a.emp_code, a.catg_id, a.basic, a.da, a.sa, a.hra, a.ta, a.da_on_sa, a.da_on_ta, a.ma, a.cash_swa, a.lwp, a.final_gross, a.pf, a.loan_prin, a.loan_int, a.p_tax, a.gici, a.income_tax_tds, a.security, a.insurance, a.other_did, a.tot_diduction, a.net_sal, a.remarks, b.emp_name,c.name designation,b.phn_no,b.department,b.pan_no, b.grade, b.ret_dt, b.dob, b.bank_ac_no');
+		$this->db->where("a.emp_code=b.emp_code and b.designation=c.id AND a.sal_month BETWEEN $frm_dt AND $to_dt");
+		$this->db->where(array(
+			'a.sal_year' => $year,
+			'a.emp_code' => $emp_code,
+			'a.approval_status' => 'A'
+		));
+		$this->db->order_by('a.sal_year, a.sal_month');
+		$query = $this->db->get('td_pay_slip a,md_employee b, md_designation c');
+		return $query->result();
 	}
 }

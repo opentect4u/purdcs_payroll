@@ -75,7 +75,7 @@
                                     </div>
                                     <input type="hidden" name="id" value="<?= $selected['id'] ?>">
                                     <button type="submit" class="btn btn-warning text-white mr-2" <?= $is_active ?>>Submit</button>
-                                    <button class="btn btn-light">Cancel</button>
+                                    <button type="button" class="btn btn-light" onclick="window.location.href='<?= site_url() ?>/catg'">Cancel</button>
                                 </form>
                             </div>
                         </div>

@@ -132,10 +132,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($payslip_dtls)) {
                                         <tr>
                                             <td class="left_algn">DA</td>
                                             <td class="right_algn"><?= $payslip_dtls->da; ?></td>
-                                            <?php if ($payslip_dtls->p_tax > 0) { ?>
-                                                <td class="left_algn">Prof. Tax</td>
+                                            <?php if ($payslip_dtls->pf > 0) { ?>
+                                                <td class="left_algn">Service P.F.</td>
                                                 <td></td>
-                                                <td class="right_algn"><?= $payslip_dtls->p_tax; ?></td>
+                                                <td class="right_algn"><?= $payslip_dtls->pf; ?></td>
                                             <?php } else { ?>
                                                 <td></td>
                                                 <td></td>
@@ -160,7 +160,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($payslip_dtls)) {
                                             <td class="right_algn"><?= $payslip_dtls->ma; ?></td>
                                             <?php if ($payslip_dtls->loan_prin > 0) { ?>
                                                 <td class="left_algn">Loan</td>
-                                                <td>Prin.</td>
+                                                <!-- <td>Prin.</td> -->
+												<td></td>
                                                 <td class="right_algn"><?= $payslip_dtls->loan_prin; ?></td>
                                             <?php } else { ?>
                                                 <td class="left_algn"></td>
@@ -175,7 +176,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($payslip_dtls)) {
                                             <td></td>
                                             <td class="right_algn"><?= $payslip_dtls->gici; ?></td>
                                         </tr> -->
-                                        <?php if ($payslip_dtls->loan_int > 0) { ?>
+                                        <?php /* if ($payslip_dtls->loan_int > 0) { ?>
                                             <tr>
                                                 <td class="left_algn"></td>
                                                 <td class="right_algn"></td>
@@ -183,7 +184,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($payslip_dtls)) {
                                                 <td>Int.</td>
                                                 <td class="right_algn"><?= $payslip_dtls->loan_int; ?></td>
                                             </tr>
-                                        <?php } ?>
+                                        <?php } */ ?>
                                         <tr>
                                             <td class="left_algn"></td>
                                             <td class="right_algn"></td>
@@ -214,6 +215,18 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($payslip_dtls)) {
                                         <b> <?php echo getIndianCurrency($payslip_dtls->net_sal); ?>
                                     </p></b>
                                 </div>
+							
+							<div>
+                                    <p style="display: inline; padding-top:45px; padding-bottom: 15px; display: inline-block;">
+										<img src="https://payroll.purdcs.com/assets/images/signature_logo.png" alt="logo"><br>
+										<b>Monalisa Mishra<br>
+Establishment Manager <br>
+Puri Urban & Rural Development Cooperative Society Ltd</b>
+                                         
+                                    </p>
+                                </div>
+						
+						
                             </div>
                         </div>
                     </div>

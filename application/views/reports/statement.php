@@ -38,7 +38,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                             <h3>Puri Urban & Rural Development Co-Operative Society Ltd.</h3>
                             <h4>Puri NEAR (JYOTI HOTEL) GRAND ROAD, PURI-752001</h4>
                             <h4>Govt. Regd. No. 193/54/PURI</h4>
-                            <h4>Salary summary report for the month of <?php echo MONTHS[$this->input->post('sal_month')] . ' ' . $this->input->post('year'); ?></h4>
+                            <h4>Salary summary report for the month of <?php echo MONTHS[$this->input->post('sal_month')] . ' ' . $this->input->post('year'); ?>
+                            <?= $this->input->post('br_code') > 0 ? "<br>for $br_name branch" : '' ?>
+                            </h4>
                         </div>
                     </div>
                     <div class="row">
@@ -205,6 +207,22 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                                                             }
                                                             ?>
 
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col-6">
+                                                        <label for="br_code">Branch:</label>
+                                                        <select class="form-control required" name="br_code" id="br_code" require>
+                                                            <option value="">Select Branch</option>
+                                                            <option value="0">All Branch</option>
+                                                            <?php foreach ($br_list as $br) { ?>
+                                                                <option value="<?= $br->id; ?>"><?= $br->branch_name; ?></option>
+                                                            <?php
+                                                            }
+                                                            ?>
                                                         </select>
                                                     </div>
                                                 </div>

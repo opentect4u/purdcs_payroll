@@ -106,6 +106,7 @@
                                                                             <div class="form-group">
                                                                                 <input type="text" name="emp_name[]" class="form-control required" id="emp_name_<?= $i ?>" value="<?= $sal['emp_name']; ?>" readonly />
                                                                                 <input type="hidden" name="emp_code[]" id="emp_code_<?= $i ?>" value="<?= $sal['emp_code'] ?>">
+                                                                                <input type="hidden" name="br_code[]" id="br_code_<?= $i ?>" value="<?= $sal['br_code'] ?>">
                                                                             </div>
                                                                         </td>
                                                                         <td>
@@ -120,7 +121,7 @@
                                                                         </td>
                                                                         <td <?= $display ?>>
                                                                             <div class="form-group">
-                                                                                <input type="text" name="hra[]" class="form-control required" id="hra_<?= $i ?>" value="<?= $sal['hra']; ?>" readonly />
+                                                                                <input type="text" name="hra[]" class="form-control required" id="hra_<?= $i ?>" value="<?= $sal['hra']; ?>" onchange="cash_cal(<?= $i ?>)" />
                                                                             </div>
                                                                         </td>
                                                                         <td <?= $display ?>>

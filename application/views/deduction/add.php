@@ -55,10 +55,10 @@
         <?php if (isset($_REQUEST['submit'])) {
             $display = '';
             $disabled = '';
-            // if ($selected['catg_id'] == 2) {
+           // if ($selected['catg_id'] == 2) {
             //     $display = 'style="display:none;"';
             // } 
-        ?>
+		?>
             <div class="card mt-4">
                 <div class="card-body">
                     <h3>Add Deductions</h3>
@@ -127,6 +127,7 @@
                                                                             <div class="form-group">
                                                                                 <input type="text" class="form-control" name="emp_name[]" id="emp_name_<?= $i ?>" value="<?= $sal['emp_name']; ?>" />
                                                                                 <input type="hidden" name="emp_code[]" id="emp_code_<?= $i ?>" value="<?= $sal['emp_code'] ?>">
+                                                                                <input type="hidden" name="br_code[]" id="br_code_<?= $i ?>" value="<?= $sal['br_code'] ?>">
                                                                             </div>
                                                                         </td>
                                                                         <td>
@@ -293,7 +294,6 @@
             var security = $('#security_' + id).val();
             var insurance = $('#insurance_' + id).val();
             var other = $('#other_did_' + id).val();
-
             var tot_diduction = $('#tot_diduction_' + id).val();
             var net_sal = $('#net_sal_' + id).val();
             var total_did = parseInt(pf) + parseInt(loan_prin) + parseInt(loan_int) + parseInt(p_tax) + parseInt(income_tax_tds) + parseInt(security) + parseInt(insurance) + parseInt(other)
@@ -346,7 +346,6 @@
             $('input[name="other_did[]"]').each(function() {
                 tot_other = parseInt(tot_other) + parseInt(this.value)
             });
-
             $('input[name="tot_diduction[]"]').each(function() {
                 tot_tot_diduction = parseInt(tot_tot_diduction) + parseInt(this.value)
             });

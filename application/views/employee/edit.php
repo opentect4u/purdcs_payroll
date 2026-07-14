@@ -43,26 +43,17 @@
 
                                                 </select>
                                             </div>
-                                            <!-- <div class="col-6">
-                                                <label for="exampleInputName1">District:</label>
-                                                <select class="form-control required" name="emp_dist" id="emp_dist">
-
-                                                    <option value="">Select District</option>
-
-                                                    <?php foreach ($dist_dtls as $dist) {
-                                                    ?>
-                                                        <option value="<?php echo $dist->district_code ?>" <?php echo ($employee_dtls->emp_dist == $dist->district_code) ? 'selected' : ''; ?>>
-                                                            <?php echo $dist->district_name; ?>
+                                            <div class="col-6">
+                                                <label for="exampleInputName1">Branch:</label>
+                                                <select class="form-control required" name="br_code" id="br_code">
+                                                    <option value="">Select Branch</option>
+                                                    <?php foreach ($br_dtls as $br) { ?>
+                                                        <option value="<?php echo $br->id ?>" <?php echo ($employee_dtls->br_code == $br->id) ? 'selected' : ''; ?>>
+                                                            <?php echo $br->branch_name; ?>
                                                         </option>
-
-                                                    <?php
-
-                                                    }
-
-                                                    ?>
-
+                                                    <?php } ?>
                                                 </select>
-                                            </div> -->
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -153,6 +144,38 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <label for="hra">HRA:<span class="requiredfield">*</span></label>
+                                                <input type="text" class="form-control required" name="hra" required id="hra" value="<?= $employee_dtls->hra; ?>" />
+                                            </div>
+                                            <div class="col-6">
+                                                <label for="ma">Medical Allowance:<span class="requiredfield">*</span></label>
+                                                <input type="text" class="form-control required" name="ma" required id="ma" value="<?= $employee_dtls->ma; ?>" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <label for="conveyance">Conveyance:<span class="requiredfield">*</span></label>
+                                                <input type="text" class="form-control required" name="conveyance" required id="conveyance" value="<?= $employee_dtls->conveyance; ?>" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <label for="security">Security:<span class="requiredfield">*</span></label>
+                                                <input type="text" class="form-control required" name="security" required id="security" value="<?= $employee_dtls->security; ?>" />
+                                            </div>
+                                            <div class="col-6">
+                                                <label for="insurance">Insurance:<span class="requiredfield">*</span></label>
+                                                <input type="text" class="form-control required" name="insurance" required id="insurance" value="<?= $employee_dtls->insurance; ?>" />
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div class="form-header">
                                         <h4>Bank & Other Details</h4>
                                     </div>
@@ -226,8 +249,8 @@
                                         </div>
                                     </div>
                                     <input type="hidden" name="emp_dist" value="339">
-                                    <button type="submit" class="btn btn-primary mr-2">Submit</button>
-                                    <button class="btn btn-light">Cancel</button>
+                                    <button type="submit" class="btn btn-warning text-white mr-2">Submit</button>
+                                    <button type="button" class="btn btn-light" onclick="window.location.href='<?= site_url() ?>/stfemp'">Cancel</button>
                                 </form>
                             </div>
                         </div>

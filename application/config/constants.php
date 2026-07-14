@@ -86,3 +86,11 @@ defined('EXIT_USER_INPUT')     OR define('EXIT_USER_INPUT', 7); // invalid user 
 defined('EXIT_DATABASE')       OR define('EXIT_DATABASE', 8); // database error
 defined('EXIT__AUTO_MIN')      OR define('EXIT__AUTO_MIN', 9); // lowest automatically-assigned error code
 defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest automatically-assigned error code
+
+$master_year = array(2022, 2023, 2024, 2025);
+
+$curr_year = (int)date('Y');
+if(!in_array($curr_year, $master_year)){
+    array_push($master_year, $curr_year);
+}
+define('YEAR_LIST', serialize($master_year));

@@ -26,12 +26,16 @@
                                           <th>Date</th>
                                           <th>Category</th>
                                           <th>Net Salary</th>
-                                          <th>Action</th>
+                                          <th>Edit</th>
+                                          <th>Delete</th>
                                       </tr>
                                   </thead>
                                   <tbody>
                                       <?php $i = 1;
-                                        foreach ($deduction_list as $ded) { ?>
+										$total_sal = 0;
+                                        foreach ($deduction_list as $ded) {
+									  	$total_sal += $ded->net_sal;
+									  ?>
                                           <tr>
                                               <td><?= $i ?></td>
                                               <td><?= $ded->effective_date ?></td>
@@ -40,12 +44,20 @@
                                               <td><a href="slrydedad?catg_id=<?= $ded->catg_id ?>&sys_dt=<?= $ded->effective_date ?>&flag=1" data-toggle="tooltip" data-placement="bottom" title="Edit">
                                                       <i class="fa fa-edit text-warning fa-2x"></i>
                                                   </a></td>
+                                            <td><a href="deddl?catg_id=<?= $ded->catg_id ?>&sys_dt=<?= $ded->effective_date ?>" data-toggle="tooltip" data-placement="bottom" title="Delete" class="delete">
+                                                      <i class="fa fa-trash text-danger fa-2x"></i>
+                                                  </a></td>
                                           </tr>
 
                                       <?php $i++;
                                         } ?>
                                   </tbody>
-
+								  <tfoot>
+									  <tr>
+										  <td colspan="3" class="h3">Total: </td>
+										  <td colspan="3" class="text-left h3"><?= $total_sal ?></td>
+									  </tr>
+								  </tfoot>
                               </table>
                           </div>
                       </div>
@@ -55,21 +67,11 @@
       </div>
   </div>
   <script>
-      $(document).ready(function() {
-
-          $('.delete').click(function() {
-
-              var id = $(this).attr('id');
-
-              var result = confirm("Do you really want to delete this record?");
-
-              if (result) {
-
-                  window.location = "<?php echo site_url('dstf?empcd="+id+"'); ?>";
-
-              }
-
-          });
-
-      });
+      $('.delete').click(function() {
+        if (confirm("Do you really want to delete this record?")) {
+            return true;
+        }else{
+            return false;
+        }
+    });
   </script>

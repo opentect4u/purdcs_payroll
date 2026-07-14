@@ -59,7 +59,7 @@
                       <th>Name</th>
                       <th>Category</th>
                       <th>Department</th>
-                      <th>District</th>
+                      <!-- <th>District</th> -->
                       <th>Edit</th>
                       <th>Delete</th>
                     </tr>
@@ -74,7 +74,7 @@
                           <td><?= $e_dtls->emp_name; ?></td>
                           <td><?= $e_dtls->category; ?></td>
                           <td><?= $e_dtls->department; ?></td>
-                          <td><?= $e_dtls->district_name; ?></td>
+                          <!-- <td><?php // echo $e_dtls->district_name; ?></td> -->
                           <td>
                             <a href="estem?emp_code=<?= $e_dtls->emp_code; ?>" data-toggle="tooltip" data-placement="bottom" title="Edit">
                               <i class="fa fa-edit text-warning fa-2x"></i>

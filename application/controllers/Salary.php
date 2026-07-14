@@ -50,6 +50,7 @@ class Salary extends CI_Controller
                     $sal_list[$i] = array(
                         'emp_name' => $dt->emp_name,
                         'emp_code' => $dt->emp_code,
+                        'br_code' => $dt->br_code,
                         'basic' => $dt->basic,
                         'da' => $dt->da,
                         // 'sa' => $dt->sa,
@@ -74,22 +75,24 @@ class Salary extends CI_Controller
                     $da = round(($emp->basic_pay * $sal_cal->da) / 100);
                     // $sa = round(($emp->basic_pay * $sal_cal->sa) / 100);
                     $hra_val = round(($emp->basic_pay * $sal_cal->hra) / 100);
+                    // $hra_val = $emp->hra;
                     // $hra = $hra_val > $sal_cal->hra_max ? $sal_cal->hra_max : $hra_val;
                     $hra = $hra_val;
                     // $da_on_sa = round(($sa * $sal_cal->da) / 100);
                     // $da_on_ta = round(($sal_cal->ta * $sal_cal->da) / 100);
-                    $gross = $emp->basic_pay + $da + $hra + $sal_cal->ma + $sal_cal->ta;
+                    $gross = $emp->basic_pay + $da + $hra + $emp->ma + $emp->conveyance;
                     $sal_list[$i] = array(
                         'emp_name' => $emp->emp_name,
                         'emp_code' => $emp->emp_code,
+                        'br_code' => $emp->br_code,
                         'basic' => $emp->basic_pay,
                         'da' => $da,
                         // 'sa' => $sa,
                         'hra' => $hra,
-                        'ta' => $sal_cal->ta,
+                        'ta' => $emp->conveyance,
                         // 'da_on_sa' => $da_on_sa,
                         // 'da_on_ta' => $da_on_ta,
-                        'ma' => $sal_cal->ma,
+                        'ma' => $emp->ma,
                         // 'cash_swa' => 0,
                         'gross' => $gross,
                         // 'lwp' => 0,
@@ -168,6 +171,25 @@ class Salary extends CI_Controller
                 $this->session->set_flashdata('msg', 'Data Not Inserted!');
                 redirect('slryad');
             }
+        }
+    }
+	
+	function earning_delete(){
+        $catg_id = $this->input->get('catg_id');
+        $sys_dt = $this->input->get('sys_dt');
+        if($catg_id > 0 && $sys_dt != ''){
+            $count_dt = $this->Admin_Process->f_get_particulars('td_pay_slip', 'COUNT(*) tot_row', array('sal_month' => date('m', strtotime($sys_dt)), 'sal_year' => date('Y', strtotime($sys_dt)), 'catg_id' => $catg_id), 0);
+            if($count_dt[0]->tot_row > 0){
+                $this->session->set_flashdata('msg', 'Data can not be deleted because payslip is generated.');
+                redirect('/slrydtl');
+            }else{
+                $this->session->set_flashdata('msg', 'Successfully Deleted!');
+                $this->Salary_Process->f_delete('td_income', array('effective_date' => $sys_dt, 'catg_id' => $catg_id));
+                redirect('/slrydtl');
+            }
+        }else{
+            $this->session->set_flashdata('msg', 'No data found.');
+            redirect('/slrydtl');
         }
     }
 
@@ -274,23 +296,23 @@ class Salary extends CI_Controller
         }
     }
 
-    public function earning_delete()
-    {                      //Delete income
+    // public function earning_delete()
+    // {                      //Delete income
 
-        $where = array(
+    //     $where = array(
 
-            "emp_code"          =>  $this->input->get('emp_code'),
+    //         "emp_code"          =>  $this->input->get('emp_code'),
 
-            "effective_date"    =>  $this->input->get('effective_date')
+    //         "effective_date"    =>  $this->input->get('effective_date')
 
-        );
+    //     );
 
-        $this->session->set_flashdata('msg', 'Successfully Deleted!');
+    //     $this->session->set_flashdata('msg', 'Successfully Deleted!');
 
-        $this->Salary_Process->f_delete('td_income', $where);
+    //     $this->Salary_Process->f_delete('td_income', $where);
 
-        redirect("slrydtl");
-    }
+    //     redirect("slrydtl");
+    // }
 
     public function deduction()
     {                       //Deduction Dashboard
@@ -326,6 +348,7 @@ class Salary extends CI_Controller
                     $sal_list[$i] = array(
                         'emp_name' => $dt->emp_name,
                         'emp_code' => $dt->emp_code,
+                        'br_code' => $dt->br_code,
                         'gross' => $dt->gross,
                         'pf' => $dt->pf,
                         'loan_emi' => $dt->loan_emi,
@@ -351,15 +374,18 @@ class Salary extends CI_Controller
                 $i = 0;
                 foreach ($emp_list as $emp) {
                     $sal = $this->Salary_Process->get_last_gross($emp->emp_code);
-                    $pf_val = $sal ? round(($sal->final_gross * $sal_cal->pf) / 100) : 'Fill Income First';
-                    $pf = $pf_val > $sal_cal->pf_max ? $sal_cal->pf_max : ($pf_val < $sal_cal->pf_min ? $sal_cal->pf_min : $pf_val);
+                    // $pf_val = $sal ? round(($sal->final_gross * $sal_cal->pf) / 100) : 'Fill Income First';
+					$pf_val = $sal ? round((($sal->basic + $sal->da) * $sal_cal->pf) / 100) : 'Fill Income First';
+                    // $pf = $pf_val > $sal_cal->pf_max ? $sal_cal->pf_max : ($pf_val < $sal_cal->pf_min ? $sal_cal->pf_min : $pf_val);
+					$pf = $pf_val;
                     $ptax_val = $sal ? $this->Salary_Process->get_ptx($sal->final_gross) : 'Fill Income First';
                     $ptax = $sal ? $ptax_val->ptax : 'Fill Income First';
-                    $last_deduction = $this->Salary_Process->get_last_instl_no($emp->emp_code);
+					$last_deduction = $this->Salary_Process->get_last_instl_no($emp->emp_code);
 
                     $sal_list[$i] = array(
                         'emp_name' => $emp->emp_name,
                         'emp_code' => $emp->emp_code,
+                        'br_code' => $emp->br_code,
                         'gross' => $sal ? $sal->final_gross : 'Fill Income First',
                         'pf' => $pf,
                         'loan_emi' => 0,
@@ -367,11 +393,11 @@ class Salary extends CI_Controller
                         'p_tax' => $ptax,
                         'gici' => 0,
                         'income_tax_tds' => 0,
-                        'security' => 0,
-                        'insurance' => 0,
+                        'security' => $emp->security,
+                        'insurance' => $emp->insurance,
                         'other_did' => 0,
-                        'tot_diduction' => $sal ? $pf + $ptax : 'Fill Income First',
-                        'net_sal' => $sal ? $sal->final_gross - ($pf + $ptax) : 'Fill Income First'
+                        'tot_diduction' => $sal ? $pf + $ptax + $emp->security + $emp->insurance : 'Fill Income First',
+                        'net_sal' => $sal ? $sal->final_gross - ($pf + $ptax + $emp->security + $emp->insurance) : 'Fill Income First'
                     );
                     $i++;
                 }
@@ -544,18 +570,22 @@ class Salary extends CI_Controller
 
     public function deduction_delete()
     {                   //Delete
-
-        $where = array(
-
-            "emp_cd"    =>  $this->input->get('empcd')
-
-        );
-
-        $this->session->set_flashdata('msg', 'Successfully Deleted!');
-
-        $this->Salary_Process->f_delete('td_deductions', $where);
-
-        redirect("slryded");
+		$catg_id = $this->input->get('catg_id');
+        $sys_dt = $this->input->get('sys_dt');
+        if($catg_id > 0 && $sys_dt != ''){
+            $count_dt = $this->Admin_Process->f_get_particulars('td_pay_slip', 'COUNT(*) tot_row', array('sal_month' => date('m', strtotime($sys_dt)), 'sal_year' => date('Y', strtotime($sys_dt)), 'catg_id' => $catg_id), 0);
+            if($count_dt[0]->tot_row > 0){
+                $this->session->set_flashdata('msg', 'Data can not be deleted because payslip is generated.');
+                redirect('/slryded');
+            }else{
+                $this->session->set_flashdata('msg', 'Successfully Deleted!');
+                $this->Salary_Process->f_delete('td_deductions', array('effective_date' => $sys_dt, 'catg_id' => $catg_id));
+                redirect('/slryded');
+            }
+        }else{
+            $this->session->set_flashdata('msg', 'No data found.');
+            redirect('/slryded');
+        }
     }
 
 
@@ -630,7 +660,8 @@ class Salary extends CI_Controller
     {
 
         $category = $this->input->post('category');
-        $max_year =   $this->Salary_Process->f_get_particulars("td_salary", NULL, array("approval_status" => 'A', 'catg_cd' => $category, '1 order by sal_year,sal_month desc limit 1' => NULL), 1);
+        $max_year =   $this->Salary_Process->f_get_particulars("td_salary", NULL, array("approval_status" => 'A', 'catg_cd' => $category, '1 order by sal_year DESC,sal_month desc limit 1' => NULL), 1);
+		// echo $this->db->last_query();exit;
         // echo '<pre>';
         // var_dump($max_year);
         // exit;
@@ -716,6 +747,7 @@ class Salary extends CI_Controller
                             'sal_month' => $sal_month,
                             'sal_year' => $year,
                             'emp_code' => $emp->emp_code,
+                            'br_code' => $emp->br_code,
                             'catg_id' => $category,
                             'basic' => $erning_dt->basic,
                             'da' => $erning_dt->da,

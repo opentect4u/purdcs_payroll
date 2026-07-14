@@ -363,9 +363,10 @@ class Salary_Process extends CI_Model
 
 	function get_emp_dtls($catg)
 	{
-		$this->db->select('emp_code, emp_name, emp_catg, designation, basic_pay, bank_ac_no');
+		$this->db->select('emp_code, br_code, br_code, emp_name, emp_catg, designation, basic_pay, hra, ma, conveyance, security, insurance, bank_ac_no');
 		$this->db->where(array(
-			'emp_catg' => $catg
+			'emp_catg' => $catg,
+			'emp_status' => 'A'
 		));
 		$query = $this->db->get('md_employee');
 		return $query->result();
@@ -420,6 +421,7 @@ class Salary_Process extends CI_Model
 				);
 				$this->db->where(array(
 					'emp_code' => $data['emp_code'][$i],
+					'br_code' => $data['br_code'][$i],
 					'effective_date' => $data['sal_date'],
 					'catg_id' => $data['catg_id']
 				));
@@ -432,6 +434,7 @@ class Salary_Process extends CI_Model
 			} else {
 				$input = array(
 					'emp_code' => $data['emp_code'][$i],
+					'br_code' => $data['br_code'][$i],
 					'effective_date' => $data['sal_date'],
 					'catg_id' => $data['catg_id'],
 					'basic' => $data['basic'][$i],
@@ -462,7 +465,7 @@ class Salary_Process extends CI_Model
 
 	function earningDtls($catg_id, $date)
 	{
-		$this->db->select('a.*, b.emp_name');
+		$this->db->select('a.*, b.emp_name, b.br_code');
 		$this->db->where(array(
 			'a.emp_code=b.emp_code' => null,
 			'a.effective_date' => $date,
@@ -499,7 +502,7 @@ class Salary_Process extends CI_Model
 		// exit;
 		return $query->row();
 	}
-
+	
 	function get_last_instl_no($emp_code)
 	{
 		$this->db->select('instal_no');
@@ -524,7 +527,7 @@ class Salary_Process extends CI_Model
 
 	function deductionDtls($catg_id, $date)
 	{
-		$this->db->select('a.*, b.emp_name');
+		$this->db->select('a.*, b.emp_name, b.br_code');
 		$this->db->where(array(
 			'a.emp_code=b.emp_code' => null,
 			'a.effective_date' => $date,
@@ -536,6 +539,9 @@ class Salary_Process extends CI_Model
 
 	function deduction_save($data)
 	{
+		// echo '<pre>';
+		// var_dump($data);
+		// exit;
 		$res_dt = false;
 		for ($i = 0; $i < count($data['emp_code']); $i++) {
 			$this->db->select('emp_code');
@@ -566,6 +572,7 @@ class Salary_Process extends CI_Model
 				);
 				$this->db->where(array(
 					'emp_code' => $data['emp_code'][$i],
+					'br_code' => $data['br_code'][$i],
 					'effective_date' => $data['sal_date'],
 					'catg_id' => $data['catg_id']
 				));
@@ -578,6 +585,7 @@ class Salary_Process extends CI_Model
 			} else {
 				$input = array(
 					'emp_code' => $data['emp_code'][$i],
+					'br_code' => $data['br_code'][$i],
 					'effective_date' => $data['sal_date'],
 					'catg_id' => $data['catg_id'],
 					'gross' => $data['gross'][$i],

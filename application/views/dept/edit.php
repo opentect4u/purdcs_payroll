@@ -19,7 +19,7 @@
                   </div>
 
                   <button type="submit" class="btn btn-warning text-white mr-2" <?= $is_active ?>>Submit</button>
-                  <button class="btn btn-light">Cancel</button>
+                  <button type="button" class="btn btn-light" onclick="window.location.href='<?= site_url() ?>/dept'">Cancel</button>
                 </form>
               </div>
             </div>

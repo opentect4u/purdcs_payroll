@@ -26,12 +26,16 @@
                                           <th>Date</th>
                                           <th>Category</th>
                                           <th>Total Gross</th>
-                                          <th>Action</th>
+                                          <th>Edit</th>
+                                          <th>Delete</th>
                                       </tr>
                                   </thead>
                                   <tbody>
                                       <?php $i = 1;
-                                        foreach ($sal_dtls as $sal) { ?>
+							 			$total_gross = 0;
+                                        foreach ($sal_dtls as $sal) {
+									  $total_gross += $sal->final_gross;
+									  ?>
                                           <tr>
                                               <td><?= $i ?></td>
                                               <td><?= $sal->effective_date ?></td>
@@ -40,12 +44,20 @@
                                               <td><a href="slryad?catg_id=<?= $sal->catg_id ?>&sys_dt=<?= $sal->effective_date ?>&flag=1" data-toggle="tooltip" data-placement="bottom" title="Edit">
                                                       <i class="fa fa-edit text-warning fa-2x"></i>
                                                   </a></td>
+                                            <td><a href="slrydel?catg_id=<?= $sal->catg_id ?>&sys_dt=<?= $sal->effective_date ?>" data-toggle="tooltip" data-placement="bottom" title="Delete" class="delete">
+                                                      <i class="fa fa-trash text-danger fa-2x"></i>
+                                                  </a></td>
                                           </tr>
 
                                       <?php $i++;
                                         } ?>
                                   </tbody>
-
+								  <tfoot>
+									  <tr>
+										  <td colspan="3" class="h3">Total: </td>
+										  <td colspan="3" class="text-left h3"><?= $total_gross ?></td>
+									  </tr>
+								  </tfoot>
                               </table>
                           </div>
                           <div class="table-responsive" id='temporary' style="display: none;">
@@ -70,21 +82,11 @@
       </div>
   </div>
   <script>
-      $(document).ready(function() {
-
-          $('.delete').click(function() {
-
-              var id = $(this).attr('id');
-
-              var result = confirm("Do you really want to delete this record?");
-
-              if (result) {
-
-                  window.location = "<?php echo site_url('dstf?empcd="+id+"'); ?>";
-
-              }
-
-          });
-
-      });
+      $('.delete').click(function() {
+        if (confirm("Do you really want to delete this record?")) {
+            return true;
+        }else{
+            return false;
+        }
+	  });
   </script>

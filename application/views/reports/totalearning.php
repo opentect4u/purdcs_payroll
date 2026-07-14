@@ -49,7 +49,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
               <h4>Puri NEAR (JYOTI HOTEL) GRAND ROAD, PURI-752001</h4>
               <h4>Govt. Regd. No. 193/54/PURI</h4>
               <h4>Total earning of Regular employees From <?php echo date('d/m/Y', strtotime($this->input->post('from_date'))) . ' To ' . date('d/m/Y', strtotime($this->input->post('to_date'))); ?>
-              </h4>
+              <?= $this->input->post('br_code') > 0 ? "<br>for $br_name branch" : '' ?>
+            </h4>
             </div>
           </div>
           <div class="row">
@@ -182,12 +183,25 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                           <div class="col-6">
                             <label for="exampleInputName1">To Date:</label>
                             <input type="date" name="to_date" class="form-control required" id="to_date" value="<?php echo $sys_date; ?>" />
-
-
                           </div>
                         </div>
                       </div>
-
+                      <div class="form-group">
+                        <div class="row">
+                          <div class="col-6">
+                            <label for="br_code">Branch:</label>
+                            <select class="form-control required" name="br_code" id="br_code" require>
+                              <option value="">Select Branch</option>
+                              <option value="0">All Branch</option>
+                              <?php foreach ($br_list as $br) { ?>
+                                <option value="<?= $br->id; ?>"><?= $br->branch_name; ?></option>
+                              <?php
+                              }
+                              ?>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
                       <input type="submit" class="btn btn-warning text-white" value="Proceed" />
                       <button class="btn btn-light">Cancel</button>
                     </form>

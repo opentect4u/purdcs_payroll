@@ -101,9 +101,21 @@ class Reports extends CI_Controller
                 "b.emp_status"          =>  'A'
             );
 
+            if((int)$this->input->post('br_code') > 0){
+                $where = array_merge($where, array('a.br_code' => $this->input->post('br_code')));
+            }
+
             $table_name = 'td_pay_slip a,md_employee b';
 
             $statement['statement'] =   $this->Report_Process->f_get_particulars($table_name, $select, $where, 0);
+
+            $br_name = '';
+            if((int)$this->input->post('br_code') > 0){
+                $br_list = $this->Report_Process->f_get_particulars("md_branch", NULL, array('id' => $this->input->post('br_code')), 1);
+                $br_name = $br_list->branch_name;
+            }
+
+            $statement['br_name'] = $br_name;
             //  echo $this->db->last_query();
             //                 die();
             $this->load->view('post_login/payroll_main');
@@ -115,6 +127,7 @@ class Reports extends CI_Controller
             $statement['month_list'] =   $this->Report_Process->f_get_particulars("md_month", NULL, NULL, 0);
             //Category List
             $statement['category']   =   $this->Report_Process->f_get_particulars("md_category", NULL, null, 0);
+            $statement['br_list']   =   $this->Report_Process->f_get_particulars("md_branch", NULL, null, 0);
             $this->load->view('post_login/payroll_main');
             $this->load->view("reports/statement", $statement);
             $this->load->view('post_login/footer');
@@ -126,9 +139,17 @@ class Reports extends CI_Controller
     {
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $totaldeduction['total_deduct'] =   $this->Report_Process->f_get_totaldeduction($this->input->post('from_date'), $this->input->post('to_date'));
+            $totaldeduction['total_deduct'] =   $this->Report_Process->f_get_totaldeduction($this->input->post('from_date'), $this->input->post('to_date'), $this->input->post('br_code'));
             //Current Year
             $totaldeduction['year']  =   $this->Report_Process->f_get_particulars("md_parameters", array('param_value'), array('sl_no' => 15), 1);
+
+            $br_name = '';
+            if((int)$this->input->post('br_code') > 0){
+                $br_list = $this->Report_Process->f_get_particulars("md_branch", NULL, array('id' => $this->input->post('br_code')), 1);
+                $br_name = $br_list->branch_name;
+            }
+
+            $totaldeduction['br_name'] = $br_name;
 
             $this->load->view('post_login/payroll_main');
             $this->load->view("reports/totaldeduction", $totaldeduction);
@@ -138,6 +159,7 @@ class Reports extends CI_Controller
             $totaldeduction['month_list'] =   $this->Report_Process->f_get_particulars("md_month", NULL, NULL, 0);
             //For Current Date
             $totaldeduction['sys_date']   =   $_SESSION['sys_date'];
+            $totaldeduction['br_list']   =   $this->Report_Process->f_get_particulars("md_branch", NULL, null, 0);
 
             $this->load->view('post_login/payroll_main');
             $this->load->view("reports/totaldeduction", $totaldeduction);
@@ -149,9 +171,16 @@ class Reports extends CI_Controller
     {
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $totalearning['total_ear'] =   $this->Report_Process->f_get_totalearning($this->input->post('from_date'), $this->input->post('to_date'));
+            $totalearning['total_ear'] =   $this->Report_Process->f_get_totalearning($this->input->post('from_date'), $this->input->post('to_date'), $this->input->post('br_code'));
             //Current Year
             $totalearning['year']  =   $this->Report_Process->f_get_particulars("md_parameters", array('param_value'), array('sl_no' => 15), 1);
+            $br_name = '';
+            if((int)$this->input->post('br_code') > 0){
+                $br_list = $this->Report_Process->f_get_particulars("md_branch", NULL, array('id' => $this->input->post('br_code')), 1);
+                $br_name = $br_list->branch_name;
+            }
+
+            $totalearning['br_name'] = $br_name;
 
             $this->load->view('post_login/payroll_main');
             $this->load->view("reports/totalearning", $totalearning);
@@ -159,6 +188,7 @@ class Reports extends CI_Controller
         } else {
             //Month List
             $totalearning['month_list'] =   $this->Report_Process->f_get_particulars("md_month", NULL, NULL, 0);
+            $totalearning['br_list'] =   $this->Report_Process->f_get_particulars("md_branch", NULL, NULL, 0);
             //For Current Date
             $totalearning['sys_date']   =   $_SESSION['sys_date'];
 
@@ -219,8 +249,8 @@ class Reports extends CI_Controller
             $this->load->view('post_login/footer');
         }
     }
-
-    function bank_pay_slip()
+	
+	function bank_pay_slip()
     {
         if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
@@ -253,6 +283,48 @@ class Reports extends CI_Controller
             $payslip['emp_list']   =   $this->Report_Process->f_get_particulars("md_employee", $select, array("emp_catg IN (1,2,3)" => NULL), 0);
             $this->load->view('post_login/payroll_main');
             $this->load->view("reports/bank_pay", $payslip);
+            $this->load->view('post_login/footer');
+        }
+    }
+	
+	function consal(){
+        if ($_SERVER['REQUEST_METHOD'] == "POST") {
+
+            //Payslip
+            $frm_mon  = $this->input->post('frm_mon');
+            $to_mon  = $this->input->post('to_mon');
+            $emp_no  = $this->input->post('emp_no');
+            $yr     = $this->input->post('year');
+
+            $emp_whr = array(
+                "a.emp_code" =>  $emp_no,
+                "a.designation = b.id" => null
+            );
+            $emp_select = 'a.*, b.name dept_name';
+
+            $payslip['emp_dtls']    =   $this->Report_Process->f_get_particulars("md_employee a, md_designation b", $emp_select, $emp_whr, 1);
+
+            $sal_data = $this->Report_Process->get_consolidated_sal($frm_mon, $to_mon, $yr, $emp_no);
+
+            $payslip['payslip_dtls']    =  $sal_data;
+
+            $this->load->view('post_login/payroll_main');
+            $this->load->view("reports/con_payslip", $payslip);
+            $this->load->view('post_login/footer');
+        } else {
+
+            //Month List
+            $payslip['month_list'] =   $this->Report_Process->f_get_particulars("md_month", NULL, NULL, 0);
+            //For Current Date
+            $payslip['sys_date']   =   $_SESSION['sys_date'];
+
+            //Employee List
+            unset($select);
+            $select = array("emp_code", "emp_name");
+            $payslip['emp_list']   =   $this->Report_Process->f_get_particulars("md_employee", $select, array("emp_catg IN (1,2,3)" => NULL), 0);
+            $payslip['year_list'] = unserialize(YEAR_LIST);
+            $this->load->view('post_login/payroll_main');
+            $this->load->view("reports/con_payslip", $payslip);
             $this->load->view('post_login/footer');
         }
     }
